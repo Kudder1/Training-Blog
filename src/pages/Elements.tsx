@@ -1,34 +1,28 @@
-import { useContext, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { Context } from '..';
-import ContentCard from '../components/ContentCard';
+import { firestore } from '..';
+import ElementCard from '../components/ElementCard';
+import { contentFields } from '../types/ContentTypes';
 import { categories, statuses } from '../utils/Constants';
 
 const Elements = () => {
-    const { firestore } = useContext(Context);
-    const [ elements ] = useCollectionData(firestore.collection('elements').orderBy('createdAt'), { idField: 'id' });
-
+    const [ elements ]: any = useCollectionData(firestore.collection('elements').orderBy('createdAt'), { idField: 'id' });
+    // подумать про кеширование useCollectionData
     const [ statusFilter, setStatusFilter] = useState('all');
     const [ categoryFilter, setCategoryFilter] = useState('all');
 
     const filteredbyStatus = useMemo(() => {
         if (statusFilter === 'all') return elements;
-        //@ts-ignore
-        return elements.filter(el => el.status === statusFilter);
+        return elements.filter((el: contentFields) => el.status === statusFilter);
     }, [elements, statusFilter]);
 
     const filteredbyStatusAndCategory = useMemo(() => {
         if (categoryFilter === 'all') return filteredbyStatus;
-        //@ts-ignore
-        return filteredbyStatus && filteredbyStatus.filter(el => el.category === categoryFilter);
+        return filteredbyStatus?.filter((el: contentFields) => el.category === categoryFilter);
     }, [filteredbyStatus, categoryFilter]);
 
-    const onStatusFilter = async (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setStatusFilter(e.target.value)
-    }
-    const onCategoryFilter = async (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setCategoryFilter(e.target.value)
-    }
+    const onStatusFilter = async (e: React.ChangeEvent<HTMLSelectElement>) => setStatusFilter(e.target.value)
+    const onCategoryFilter = async (e: React.ChangeEvent<HTMLSelectElement>) => setCategoryFilter(e.target.value)
 
     return (
         <>
@@ -54,8 +48,8 @@ const Elements = () => {
                 </div>
             </div>
             <section className="elements-container elements-container_grid-four">
-               {filteredbyStatusAndCategory && filteredbyStatusAndCategory.length ? filteredbyStatusAndCategory.map((el: any) =>
-                <ContentCard key={el.id} element={el} />
+               {filteredbyStatusAndCategory?.length ? filteredbyStatusAndCategory.map((el: contentFields) =>
+                <ElementCard key={el.id} element={el} />
                 ) : <p style={{padding: 15}}>No elements found</p>}
             </section>
         </>

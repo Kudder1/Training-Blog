@@ -1,7 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { ELEMENTS_ROUTE, GOALS_ROUTE } from '../routes';
-import { Context } from '..';
+import { auth, firestore } from '..';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import firebase from 'firebase';
 import { categories, contentTypes, statuses } from '../utils/Constants';
@@ -9,23 +9,30 @@ import { categories, contentTypes, statuses } from '../utils/Constants';
 const initialValues = {
     type: 'element',
     category: 'spins',
-    title: 'Spin jump',
-    description: 'Eat more sweets every day',
-    status: 'progress',
-    deadline: '2021-12-13',
+    title: 'NEWWW',
+    description: 'NEWWW Eat more sweets every day',
+    status: 'done',
+    deadline: '2025-12-13',
     isDone: false,
 }
 
 const ContentForm = () => {
     const history = useHistory();
-    const { firestore, auth } = useContext(Context);
     const [values, setValues] = useState(initialValues);
     const [user] = useAuthState(auth)
+
+    const getFields = () => {
+        if (values.type === 'element') {
+            const { deadline, isDone, ...properties } = values;
+            return properties;
+        }
+        return values;
+    }
 
     const sendCollection = async () => {
         await firestore.collection(`${values.type}s`).add({
             uid: user.uid,
-            ...values,
+            ...getFields(),
             createdAt: firebase.firestore.FieldValue.serverTimestamp()
         })
     }

@@ -1,8 +1,5 @@
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
 import App from './App';
-import { store } from './store';
-import { createContext } from 'react';
 import firebase from 'firebase';
 import 'firebase/auth';
 import 'firebase/firestore';
@@ -15,18 +12,11 @@ firebase.initializeApp({
    messagingSenderId: '112418331024',
    appId: '1:112418331024:web:58356b80ace9f8d7bd7b15'
  });
- 
 
-export const Context = createContext({} as any)
-
-const auth = firebase.auth();
+export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
 ReactDOM.render(
-   <Context.Provider value={{firebase, auth, firestore}}>
-      <Provider store={store}>
-         <App />
-      </Provider>
-   </Context.Provider>,
+  <App />,
   document.getElementById('root')
 );

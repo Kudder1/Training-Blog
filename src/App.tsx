@@ -7,14 +7,11 @@ import MainMenu from './components/MainMenu';
 import Search from './components/Search';
 import Login from './pages/Login';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Context } from '.';
-import { useContext } from 'react';
 import Loader from './components/Loader';
 import Main from './components/Main';
+import { auth } from '.';
 
-//Привет, спасибо за видео! Возник вопрос, зачем мы прокидываем в ctx firebase, auth, firestore, если мы можем их экспортить?
 function App() {
-  const { auth } = useContext(Context);
   const [ user, loading ] = useAuthState(auth);
   
   if (loading) {

@@ -466,8 +466,107 @@ $size: 175px;
 }
 
 .goal {
-  border: 1px solid #ccc;
   padding: 15px;
+  border-radius: 4px;
+  box-shadow: 0px 0px 16px rgba(0, 0, 0, .15);
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
+  &-container {
+    border-left: 5px solid #303f9f;
+    padding-left: 15px;
+  }
+  &__name {
+    margin-bottom: 10px;
+  }
+  &__description {
+    margin-bottom: 10px;
+    font-size: 15px;
+  }
+  &_done {
+    .goal__name {
+      text-decoration: line-through;
+      svg {
+        fill: #2ED47A;
+        margin-left: 7px;
+      }
+    }
+    .goal-container {
+      border-color: #2ED47A;
+    }
+    .action-panel__item {
+      background: #2ED47A;
+      &:hover {
+        background: #26bc6b;
+      }
+    }
+  }
+}
+
+.action-panel {
+  display: flex;
+  &__item {
+    display: flex;
+    align-items: center;
+    background: #3f51b5;
+    border: 1px solid #ccc;
+    padding: 7px 23px;
+    cursor: pointer;
+    color: #fff;
+    margin-right: 5px;
+    border-radius: 4px;
+    transition: .3s;
+    &:hover {
+      background: #303f9f;
+      transition: .3s;
+    }
+    &_done {
+      // ВСЕ КНОПКИ И ЛЕВАЯ ПОЛОСА ОДНОГО ЦВЕТА
+
+      // background: #2ED47A;
+      // &:hover {
+      //   background: #26bc6b;
+      // }
+    }
+    &_notdone {
+      // background: #f79400;
+      // &:hover {
+      //   background: #ec8f04;
+      // }
+      svg {
+        width: 12px;
+      }
+    }
+  }
+  svg {
+    fill: #fff;
+    margin-right: 5px;
+  }
+}
+
+.date-info {
+  display: flex;
+  margin-bottom: 10px;
+  &__item {
+    display: flex;
+    align-items: center;
+    margin-right: 7px;
+    font-size: 13px;
+  }
+  &__icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    &_first {
+      height: 14px;
+      position: relative;
+      top: -1px;
+    }
+  }
+  &__small-text {
+    color: rgba(#000, .75);
+    margin-right: 3px;
+  }
 }
 
 .loader {
