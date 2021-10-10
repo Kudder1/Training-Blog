@@ -15,7 +15,7 @@ const Main = () => {
     return (
         <>
             <div className="main">
-                <div className={`main-content main-content_${path} block`}>
+                <div className={`main-content main-content_${path ? path : 'home'} block`}>
                 <Switch>
                     {privateRoutes.map(({path, Component}) =>
                         <Route key={path} path={path} component={Component} exact={true}/>

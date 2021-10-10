@@ -14,9 +14,7 @@ import { auth } from '.';
 function App() {
   const [ user, loading ] = useAuthState(auth);
   
-  if (loading) {
-    return <Loader/>
-  }
+  if (loading) return <div className="loader_main"><Loader/></div>
   return (
     <Router>
       {user ?
