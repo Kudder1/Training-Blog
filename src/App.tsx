@@ -33,7 +33,7 @@ function App() {
       </>
       :
       <Switch>
-        <Route path={LOGIN_ROUTE} component={Login}/>.
+        <Route path={LOGIN_ROUTE} component={Login}/>
         <Redirect to={LOGIN_ROUTE}/>
       </Switch>
       }

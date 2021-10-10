@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { firestore } from '..';
 import ElementCard from '../components/ElementCard';
-import { contentFields } from '../types/ContentTypes';
+import { elementFields } from '../types/ContentTypes';
 import { categories, statuses } from '../utils/Constants';
 
 const Elements = () => {
@@ -13,12 +13,12 @@ const Elements = () => {
 
     const filteredbyStatus = useMemo(() => {
         if (statusFilter === 'all') return elements;
-        return elements.filter((el: contentFields) => el.status === statusFilter);
+        return elements.filter((el: elementFields) => el.status === statusFilter);
     }, [elements, statusFilter]);
 
     const filteredbyStatusAndCategory = useMemo(() => {
         if (categoryFilter === 'all') return filteredbyStatus;
-        return filteredbyStatus?.filter((el: contentFields) => el.category === categoryFilter);
+        return filteredbyStatus?.filter((el: elementFields) => el.category === categoryFilter);
     }, [filteredbyStatus, categoryFilter]);
 
     const onStatusFilter = async (e: React.ChangeEvent<HTMLSelectElement>) => setStatusFilter(e.target.value)
@@ -48,7 +48,7 @@ const Elements = () => {
                 </div>
             </div>
             <section className="elements-container elements-container_grid-four">
-               {filteredbyStatusAndCategory?.length ? filteredbyStatusAndCategory.map((el: contentFields) =>
+               {filteredbyStatusAndCategory?.length ? filteredbyStatusAndCategory.map((el: elementFields) =>
                 <ElementCard key={el.id} element={el} />
                 ) : <p style={{padding: 15}}>No elements found</p>}
             </section>

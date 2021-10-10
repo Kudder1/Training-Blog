@@ -7,12 +7,12 @@ import firebase from 'firebase';
 import { categories, contentTypes, statuses } from '../utils/Constants';
 
 const initialValues = {
-    type: 'element',
-    category: 'spins',
-    title: 'NEWWW',
-    description: 'NEWWW Eat more sweets every day',
-    status: 'done',
-    deadline: '2025-12-13',
+    type: '',
+    category: '',
+    title: '',
+    description: '',
+    status: '',
+    deadline: '',
     isDone: false,
 }
 
@@ -25,8 +25,10 @@ const ContentForm = () => {
         if (values.type === 'element') {
             const { deadline, isDone, ...properties } = values;
             return properties;
+        } else if (values.type === 'goal') {
+            const { category, status, ...properties } = values;
+            return properties;
         }
-        return values;
     }
 
     const sendCollection = async () => {
@@ -53,7 +55,7 @@ const ContentForm = () => {
 
     return (
         <form onSubmit={onContentSubmit} className="adding-form">
-            <fieldset className="adding-form-item input-box">
+            <fieldset className="input-box">
                 <select required name="type" className="select" onChange={handleInputChange} value={values.type}>
                     <option value="" disabled>Type</option>
                     {contentTypes.map(type =>
@@ -62,35 +64,42 @@ const ContentForm = () => {
                 </select>
                 <label>Type</label>
             </fieldset>
-            <fieldset className="adding-form-item input-box">
-                <select required name="category" className="select" onChange={handleInputChange} value={values.category}>
-                    <option value="" disabled>Category</option>
-                    {categories.map(category =>
-                        <option key={category}>{category}</option>
-                    )}
-                </select>
-                <label>Category</label>
-            </fieldset>
-            <fieldset className="adding-form-item input-box">
+            {values.type === 'element' ?
+                <fieldset className="input-box">
+                    <select required name="category" className="select" onChange={handleInputChange} value={values.category}>
+                        <option value="" disabled>Category</option>
+                        {categories.map(category =>
+                            <option key={category}>{category}</option>
+                        )}
+                    </select>
+                    <label>Category</label>
+                </fieldset>
+                : null
+            }
+            <fieldset className="input-box">
                 <input required name="title" type="text" onChange={handleInputChange} value={values.title}/>
                 <label>Title</label>
             </fieldset>
-            <fieldset className="adding-form-item input-box">
+            <fieldset className="input-box">
                 <textarea rows={4} required name="description" onChange={handleInputChange} value={values.description}></textarea>
                 <label>Description</label>
             </fieldset>
-            <fieldset className="adding-form-item input-box">
-                <select required name="status" className="select" onChange={handleInputChange} value={values.status}>
-                    <option value="" hidden disabled>Status</option>
-                    {statuses.map(status =>
-                        <option key={status}>{status}</option>
-                    )}
-                </select>
-                <label>Status</label>
-            </fieldset>
+            {values.type === 'element' ?
+                <fieldset className="input-box">
+                    <select required name="status" className="select" onChange={handleInputChange} value={values.status}>
+                    <option value="" disabled>Status</option>
+                        {statuses.map(status =>
+                            <option key={status}>{status}</option>
+                        )}
+                    </select>
+                    <label>Status</label>
+                </fieldset>
+                : null
+            }
             {values.type === 'goal' ?
-                <fieldset className="adding-form-item input-box">
+                <fieldset className="input-box">
                     <input required type="date" name="deadline" onChange={handleInputChange} value={values.deadline}/>
+                    <label>Deadline</label>
                 </fieldset>
                 : null
             }

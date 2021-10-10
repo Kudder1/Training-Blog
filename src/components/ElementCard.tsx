@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { firestore } from "..";
-import { contentFields } from "../types/ContentTypes";
+import { elementFields } from "../types/ContentTypes";
 import { statuses } from "../utils/Constants";
 import { ReactComponent as EditIcon } from '../assets/edit-icon.svg';
 import { ReactComponent as SaveIcon } from '../assets/save-icon.svg';
 
 type ElementCardProps = {
-    element: contentFields;
+    element: elementFields;
     informer?: boolean;
 }
 

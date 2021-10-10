@@ -36,7 +36,6 @@ main {
 }
 
 .main {
-  //background: #F5F6F8;
   background: url('./assets/skater-bg.jpg');
   background-size: cover;
   background-attachment: fixed;
@@ -62,7 +61,7 @@ main {
   @media (max-width: 768px) {
     padding: 15px;
   }
-  &_elements {
+  &_elements, &_goals {
     background: rgba(255,255,255,.6);
   }
   &_new {
@@ -469,15 +468,38 @@ $size: 175px;
   padding: 15px;
   border-radius: 4px;
   box-shadow: 0px 0px 16px rgba(0, 0, 0, .15);
+  background: rgba(255,255,255,.72);
+  position: relative;
   &:not(:last-child) {
     margin-bottom: 20px;
   }
+  &_edit {
+    input, textarea, select {
+      width: 100%;
+      border: 1px solid #000;
+      border-radius: 4px;
+      padding: 0 5px;
+    }
+  }
+  &_overdue {
+    .goal-container {
+      border-color: red;
+    }
+    .date-info__item_deadline {
+      color: red;
+    }
+  }
   &-container {
+    max-width: 400px;
     border-left: 5px solid #303f9f;
     padding-left: 15px;
+    position: relative;
   }
   &__name {
     margin-bottom: 10px;
+    input {
+      font: inherit;
+    }
   }
   &__description {
     margin-bottom: 10px;
@@ -520,19 +542,7 @@ $size: 175px;
       background: #303f9f;
       transition: .3s;
     }
-    &_done {
-      // ВСЕ КНОПКИ И ЛЕВАЯ ПОЛОСА ОДНОГО ЦВЕТА
-
-      // background: #2ED47A;
-      // &:hover {
-      //   background: #26bc6b;
-      // }
-    }
     &_notdone {
-      // background: #f79400;
-      // &:hover {
-      //   background: #ec8f04;
-      // }
       svg {
         width: 12px;
       }
@@ -675,6 +685,7 @@ select {
   }
   input, select {
     &:focus ~ label,
+    &[type="date"] ~ label,
     &:not([value=""]) ~ label {
       @include active-label;
     }
