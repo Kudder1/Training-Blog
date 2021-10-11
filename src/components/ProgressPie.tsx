@@ -5,7 +5,6 @@ type ProgressPieProps = {
 
 const ProgressPie = ({percent, degree}: ProgressPieProps) => {
     if (percent > 100) {
-        percent = 100
         degree = 360
     }
     if (percent < 0 || !percent) {

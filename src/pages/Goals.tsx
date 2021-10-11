@@ -5,7 +5,7 @@ import GoalCard from "../components/GoalCard";
 import { goalFields } from "../types/ContentTypes";
 
 const Goals = () => {
-  const [ goals ]: any = useCollectionData(firestore.collection('goals').orderBy('createdAt'), { idField: 'id' });
+  const [ goals ]: any = useCollectionData(firestore.collection('goals').orderBy('createdAt', 'desc'), { idField: 'id' });
   const [ isDoneFilter, setIsDoneFilter] = useState('all');
 
   const filteredbyStatus = useMemo(() => {

@@ -4,7 +4,7 @@ import { firestore } from '..';
 import ElementCard from './ElementCard';
 
 const Informer = () => {
-    const [ elements ] = useCollectionData(firestore.collection('elements').orderBy('createdAt').limit(3), { idField: 'id' });
+    const [ elements ] = useCollectionData(firestore.collection('elements').orderBy('createdAt', 'desc').limit(3), { idField: 'id' });
     return (
         <>
             {elements?.length ? <h3 style={{marginBottom: 15}}>Recent elements</h3> : null}

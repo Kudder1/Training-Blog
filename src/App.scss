@@ -198,14 +198,14 @@ main {
   }
 }
 
-.progress-input {
+.completed-input {
   width: 38px;
   font-size: 1rem;
   padding: 0 5px;
   border-bottom: 1px solid #ccc;
 }
 
-.progress-btn {
+.completed-btn {
   background: transparent;
   padding: 0 5px;
   cursor: pointer;
@@ -213,7 +213,7 @@ main {
   top: 2px;
 }
 
-.progress-plan {
+.completed-plan {
   padding-left: 5px;
 }
 
@@ -275,7 +275,7 @@ main {
 }
 
 .activity-progress {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 @mixin circle($size) {

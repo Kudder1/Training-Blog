@@ -17,7 +17,8 @@ export interface goalFields extends contentFields {
     deadline: string
     isDone: boolean
 }
-export interface activityFields {
+export interface activity {
+    name: string,
     completed: number
     planned: number
 }
@@ -27,9 +28,7 @@ export interface weekEdges {
 }
 export interface trainingWeek {
     createdAt: createdAt
-    iceRink: activityFields
-    offIce: activityFields
-    stretching: activityFields
+    activities: activity[]
     uid: string
     id: string
     weekEdges: weekEdges
