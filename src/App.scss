@@ -31,6 +31,10 @@ html, body, aside, main, #root {
   width: 260px;
 }
 
+.d-flex {
+  display: flex;
+}
+
 main {
   width: 100%;
 }
@@ -194,30 +198,57 @@ main {
   }
 }
 
-.track-input {
-  width: 120px;
-  height: 40px;
-  border: 1px solid #ccc;
-  text-indent: 5px;
-  border-radius: 4px;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+.progress-input {
+  width: 38px;
+  font-size: 1rem;
+  padding: 0 5px;
+  border-bottom: 1px solid #ccc;
 }
 
-.progress-input {
-  width: 60px;
+.progress-btn {
+  background: transparent;
+  padding: 0 5px;
+  cursor: pointer;
+  position: relative;
+  top: 2px;
+}
+
+.progress-plan {
+  padding-left: 5px;
 }
 
 .activity-progress__text {
   margin-right: 5px;
 }
 
+.input-box .track-input {
+  min-width: 100px !important;
+  width: 100px;
+  height: 100%;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
 .track-btn {
-  width: 120px;
-  height: 40px;
-  border: 1px solid #ccc;
-  border-left: 0;
+  width: 100px;
   cursor: pointer;
+  color: #fff;
+  background: #3f51b5;
+  border: 1px solid #3f51b5;
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  &:hover {
+    background: #303f9f;
+  }
+}
+
+.activity-tracking {
+  height: 40px;
+  .input-box {
+    margin-bottom: 0;
+  }
 }
 
 .activity-section {
@@ -228,15 +259,11 @@ main {
   box-shadow: 0px 0px 16px rgba(0, 0, 0, .15);
   border-radius: 4px;
   max-width: 50%;
-}
-
-.activity-section--work {
   display: flex;
   justify-content: space-between;
-}
-
-.activity-section--work .activity-section__item {
-  width: auto;
+  .activity-section__item {
+    width: auto;
+  }
 }
 
 .activity-section__title {
@@ -261,15 +288,24 @@ main {
   height: $size;
 }
   
-$size: 175px;
+$size: 176px;
 .progress-pie-chart {
   width: $size;
   height: $size;
   border-radius: 50%;
   background-color: #E5E5E5;
   position: relative;
+  &[data-percent="0"] .ppc-percents span {
+    color: #ccc
+  }
   &.gt-50 {
     background-color: #81CE97;
+    .ppc-progress-fill {
+      background: #81CE97;
+    }
+    .ppc-percents span {
+      color: #81CE97;
+    }
   }
 }
 .ppc-progress {
@@ -278,7 +314,7 @@ $size: 175px;
   .ppc-progress-fill {
     @include circle($size);
     clip: rect(0, #{$size/2}, $size, 0);
-    background: #81CE97;
+    background: #3f51b5;
     transform: rotate(60deg);
   }
   .gt-50 & {
@@ -298,7 +334,7 @@ $size: 175px;
     display: block;
     font-size: 2.6em;
     font-weight: bold;
-    color: #81CE97;
+    color: #3f51b5;
   }
 }
 .pcc-percents-wrapper {

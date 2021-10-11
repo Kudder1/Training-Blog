@@ -1,10 +1,10 @@
 import firebase from "firebase";
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, firestore } from "..";
 import Loader from "../components/Loader";
 import ProgressPie from "../components/ProgressPie";
-import { trainingWeek, weekEdges } from "../types/ContentTypes";
+import { activityFields, trainingWeek, weekEdges } from "../types/ContentTypes";
 import { getWeekView } from "../utils/Functions";
 import { getWeekEdges } from "../utils/getWeekEdges";
 import { ReactComponent as EditIcon } from '../assets/edit-icon.svg';
@@ -31,9 +31,21 @@ const initialPlanValues = {
     stretching: false,
 }
 
+const trackProgressValues: any = {
+    iceRink: '',
+    offIce: '',
+    stretching: '',
+}
+
 const Home = () => {
     const [user] = useAuthState(auth)
     const [plansEdit, setPlansEdit] = useState(initialPlanValues);
+    const [week, setWeek] = useState(null as any | trainingWeek);
+    const [progress, setProgress] = useState(trackProgressValues);
+
+    useEffect(() => {
+        fetchWeek();
+    }, [])
 
     const sendWeek = async (weekEdges: weekEdges) => {
         await firestore.collection('weeks').add({
@@ -44,7 +56,6 @@ const Home = () => {
         })
     }
 
-    const [week, setWeek] = useState(null as any)
     const fetchWeek = async () => {
         const querySnapshot = await firestore.collection('weeks').orderBy('createdAt', 'desc').limit(1).get();
         const weekDoc = querySnapshot.docs[0];
@@ -55,15 +66,9 @@ const Home = () => {
            return;
         }
         const weekData = weekDoc.data() as trainingWeek;
-        querySnapshot.docs.forEach(el => {
-            console.log(el.data(), 'weekDoc')
-
-        })
         const today = new Date(Date.now());
         const weekStart = new Date(weekData.weekEdges.weekStart);
         const weekEnd = new Date(weekData.weekEdges.weekEnd);
-        console.log(weekStart)
-        console.log(weekEnd)
          if (weekStart > today || weekEnd < today) {
             console.log('week stale')
             await sendWeek(getWeekEdges());
@@ -72,10 +77,6 @@ const Home = () => {
         }
         setWeek({...weekData, id: querySnapshot.docs[0].id});
     }
-
-    useEffect(() => {
-        fetchWeek();
-    }, [])
 
     const iceRinkPercent = useMemo(() => {
         if (week) {
@@ -91,12 +92,53 @@ const Home = () => {
         return 0;
     }, [iceRinkPercent]);
 
-    const onPlanEdit = (event: React.MouseEvent<HTMLButtonElement>) => {
-        const planName = event.currentTarget.name;
-        setPlansEdit({
-            ...plansEdit,
-            [planName]: true,
+    const onPlanEdit = (e: React.MouseEvent<HTMLButtonElement>) => {
+        const name = e.currentTarget.name;
+        setPlansEdit({...plansEdit, [name]: true})
+    }
+
+    const handlePlanChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        const plan = week[name] as activityFields;
+        setWeek({
+            ...week,
+            [name]: { ...plan, planned: +value }
         })
+    };
+
+    const onPlanSave = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        const planName = e.currentTarget.name;
+        const plan = week[planName];
+        await firestore.collection('weeks').doc(week.id).update({[planName]: plan});
+        setPlansEdit({...plansEdit, [planName]: false})
+    }
+
+    const handleProgressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setProgress({
+            ...progress,
+            [name]: +value
+        })
+    };
+
+    const onTrackSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const { name: progressName } = e.target as HTMLFormElement;
+        const progressBE = week[progressName];
+        const progressFE = progress[progressName];
+        const updatedProgress = {
+            ...progressBE,
+            completed: progressBE.completed + progressFE
+        };
+        setProgress({
+            ...progress,
+            [progressName]: '',
+        })
+        setWeek({
+            ...week,
+            [progressName]: updatedProgress
+        })
+        await firestore.collection('weeks').doc(week.id).update({[progressName]: updatedProgress});
     }
 
     if (!week) return <Loader/>
@@ -104,23 +146,32 @@ const Home = () => {
     return (
         <>
             <h1 className="main-heading">{getWeekView(week.weekEdges.weekStart, week.weekEdges.weekEnd)}</h1>
-            <section className="activity-section activity-section--work">
+            <section className="activity-section">
                 <div className="activity-section__item">
                     <h2 className="activity-section__title">Ice Rink</h2>
                     <div className="activity-progress">
-                        <span title="In minutes" className="activity-progress__text">
-                            <b>Progress:</b> {week.iceRink.completed} / {week.iceRink.planned}
+                        <div title="In minutes" className="activity-progress__text">
+                            <b>Progress:</b> {week.iceRink.completed} / 
                             {plansEdit.iceRink ?
                                 <>
-                                    <input value={week.iceRink.planned} className="progress-input"/>
-                                    <button><SaveIcon/></button>
+                                    <input maxLength={3} name="iceRink" value={week.iceRink.planned} onChange={handlePlanChange} className="progress-input"/>
+                                    <button onClick={onPlanSave} className="progress-btn progress-btn_save" name="iceRink"><SaveIcon/></button>
                                 </>
-                                : <button name="iceRink" onClick={onPlanEdit}><EditIcon fill="#000"/></button>
+                                :
+                                <>
+                                    <span className="progress-plan">{week.iceRink.planned}</span>
+                                    <button className="progress-btn progress-btn_edit" name="iceRink" onClick={onPlanEdit}><EditIcon fill="#000"/></button>
+                                </>
                             }
-                        </span>
+                        </div>
                     </div>
-                    <input className="track-input" type="text" placeholder="Minutes" />
-                    <button disabled className="track-btn">Track</button>
+                    <form name="iceRink" onSubmit={onTrackSubmit} className="activity-tracking d-flex">
+                        <fieldset className="input-box">
+                            <input value={progress.iceRink} onChange={handleProgressChange} required name="iceRink" maxLength={3} className="track-input" inputMode="decimal"/>
+                            <label>Minutes</label>
+                        </fieldset>
+                        <button disabled={!progress.iceRink} className="track-btn">Track</button>
+                    </form>
                 </div>
                 <div className="activity-section__item">
                     <ProgressPie percent={iceRinkPercent} degree={iceRinkDegree} />
