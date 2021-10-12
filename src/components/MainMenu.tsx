@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { ELEMENTS_ROUTE, GOALS_ROUTE } from '../routes';
+import { ELEMENTS_ROUTE, GOALS_ROUTE, WEEKS_ROUTE } from '../routes';
 import Burger from './Burger';
 
 const MainMenu = () => {
@@ -13,6 +13,7 @@ const MainMenu = () => {
           <li><NavLink to="/" exact={true}>Main</NavLink></li>
           <li><NavLink to={ELEMENTS_ROUTE}>Elements</NavLink></li>
           <li><NavLink to={GOALS_ROUTE}>Goals</NavLink></li>
+          <li><NavLink to={WEEKS_ROUTE}>Weeks</NavLink></li>
         </ul>
       </nav>
     );

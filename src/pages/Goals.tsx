@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { firestore } from "..";
 import GoalCard from "../components/GoalCard";
@@ -7,6 +7,8 @@ import { goalFields } from "../types/ContentTypes";
 const Goals = () => {
   const [ goals ]: any = useCollectionData(firestore.collection('goals').orderBy('createdAt', 'desc'), { idField: 'id' });
   const [ isDoneFilter, setIsDoneFilter] = useState('all');
+
+  useEffect(() => { document.title = 'Goals' }, [])
 
   const filteredbyStatus = useMemo(() => {
     if (isDoneFilter === 'all') return goals;

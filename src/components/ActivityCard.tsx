@@ -6,15 +6,15 @@ import ProgressPie from "../components/ProgressPie";
 
 type ActivityCardProps = {
     activity: activity;
-    postCompleted: (completed: number | string, name: string) => void;
-    postPlanned: (planned: number | string, name: string) => void;
+    postCompleted: (completed: number, name: string) => void;
+    postPlanned: (planned: number, name: string) => void;
 }
 
 const ActivityCard = ({ activity, postCompleted, postPlanned }: ActivityCardProps) => {
     const { planned, completed, name } = activity;
 
     const [completedValue, setCompletedValue] = useState('' as number | string);
-    const [plannedValue, setPlannedValue] = useState(planned as number | string);
+    const [plannedValue, setPlannedValue] = useState(planned as number);
     const [plannedEdit, setPlannedEdit] = useState(false);
 
     const iceRinkPercent = useMemo(() => {
@@ -32,7 +32,7 @@ const ActivityCard = ({ activity, postCompleted, postPlanned }: ActivityCardProp
 
     const onCompletedSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        postCompleted(completedValue, name);
+        postCompleted(+completedValue, name);
         setCompletedValue('');
     }
 
@@ -41,7 +41,7 @@ const ActivityCard = ({ activity, postCompleted, postPlanned }: ActivityCardProp
         <div className="activity-section__item">
             <h2 className="activity-section__title">{name}</h2>
             <div className="activity-progress">
-                <div title="In minutes" className="activity-progress__text">
+                <div className="activity-progress__text">
                     <span><b>Progress:</b> {completed} / </span>
                     {plannedEdit ?
                         <>

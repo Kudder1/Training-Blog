@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { firestore } from '..';
 import ElementCard from '../components/ElementCard';
@@ -10,6 +10,8 @@ const Elements = () => {
     // подумать про кеширование useCollectionData
     const [ statusFilter, setStatusFilter] = useState('all');
     const [ categoryFilter, setCategoryFilter] = useState('all');
+
+    useEffect(() => { document.title = 'Elements' }, [])
 
     const filteredbyStatus = useMemo(() => {
         if (statusFilter === 'all') return elements;

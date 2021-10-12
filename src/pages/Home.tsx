@@ -11,9 +11,10 @@ import { initialActivities } from "../utils/Constants";
 
 const Home = () => {
     const [user] = useAuthState(auth)
-    const [week, setWeek] = useState(null as any | trainingWeek);
+    const [week, setWeek] = useState<trainingWeek | null>(null); // think how reuse START
 
     useEffect(() => {
+        document.title = 'Home'
         fetchWeek();
     }, [])
 
@@ -47,19 +48,19 @@ const Home = () => {
     }
 
     // think how reuse START
-    const postCompleted = async (completed: number | string, name: string) => {
-        const activity = week.activities.find((activity: activity) => activity.name === name)
+    const postCompleted = async (completed: number, name: string) => {
+        const activity = week!.activities.find(activity => activity.name === name) as activity
         const updatedActivity = { ...activity, completed: activity.completed + completed }
-        const updatedActivities = week.activities.map((activity: activity) => activity.name === updatedActivity.name ? updatedActivity : activity)
-        setWeek({ ...week, activities: updatedActivities})
-        await firestore.collection('weeks').doc(week.id).update({activities: updatedActivities})
+        const updatedActivities = week!.activities.map((activity: activity) => activity.name === updatedActivity.name ? updatedActivity : activity) as activity[]
+        setWeek({ ...week!, activities: updatedActivities})
+        await firestore.collection('weeks').doc(week!.id).update({activities: updatedActivities})
     }
-    const postPlanned = async (planned: number | string, name: string) => {
-        const activity = week.activities.find((activity: activity) => activity.name === name)
+    const postPlanned = async (planned: number, name: string) => {
+        const activity = week!.activities.find(activity => activity.name === name) as activity
         const updatedActivity = { ...activity, planned }
-        const updatedActivities = week.activities.map((activity: activity) => activity.name === updatedActivity.name ? updatedActivity : activity)
-        setWeek({ ...week, activities: updatedActivities})
-        await firestore.collection('weeks').doc(week.id).update({activities: updatedActivities})
+        const updatedActivities = week!.activities.map((activity) => activity.name === updatedActivity.name ? updatedActivity : activity)
+        setWeek({ ...week!, activities: updatedActivities})
+        await firestore.collection('weeks').doc(week!.id).update({activities: updatedActivities})
     }
     // think how reuse END
 

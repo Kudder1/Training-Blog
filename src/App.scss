@@ -63,9 +63,9 @@ main {
   width: 100%;
   padding: 30px;
   @media (max-width: 768px) {
-    padding: 15px;
+    padding: 19px 15px;
   }
-  &_elements, &_goals, &_home {
+  &_elements, &_goals, &_home, &_weeks {
     background: rgba(255,255,255,.6);
   }
   &_home {
@@ -261,17 +261,15 @@ main {
   max-width: 50%;
   display: flex;
   justify-content: space-between;
-  .activity-section__item {
+  @media (max-width: 1280px) {
+    max-width: 100%;
+  }
+  &__item {
     width: auto;
   }
-}
-
-.activity-section__title {
-  margin-bottom: 20px;
-}
-
-.activity-section__item {
-  width: 50%;
+  &__title {
+    margin-bottom: 20px;
+  }
 }
 
 .activity-progress {
@@ -288,7 +286,7 @@ main {
   height: $size;
 }
   
-$size: 176px;
+$size: 166px;
 .progress-pie-chart {
   width: $size;
   height: $size;
@@ -808,5 +806,21 @@ button[type="submit"] {
     top: -25px;
     left: 0;
     color: #3f51b5;
+  }
+}
+
+.week-link {
+  display: block;
+  text-decoration: none;
+  font-size: 21px;
+  font-weight: bold;
+  border-left: 4px solid #3f51b5;
+  background: rgba(255, 255, 255, 0.7);
+  margin-bottom: 20px;
+  padding: 15px;
+  color: #3f51b5;
+  border-radius: 4px;
+  &:first-of-type {
+    border-color: #2ED47A;
   }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { ELEMENTS_ROUTE, GOALS_ROUTE } from '../routes';
 import { auth, firestore } from '..';
@@ -20,6 +20,8 @@ const ContentForm = () => {
     const history = useHistory();
     const [values, setValues] = useState(initialValues);
     const [user] = useAuthState(auth)
+
+    useEffect(() => { document.title = 'Adding Form' }, [])
 
     const getFields = () => {
         if (values.type === 'element') {

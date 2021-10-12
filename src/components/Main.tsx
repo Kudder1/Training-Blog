@@ -17,10 +17,12 @@ const Main = () => {
             <div className="main">
                 <div className={`main-content main-content_${path ? path : 'home'} block`}>
                 <Switch>
-                    {privateRoutes.map(({path, Component}) =>
-                        <Route key={path} path={path} component={Component} exact={true}/>
+                    {privateRoutes.map(({path, component}) =>
+                        <Route key={path} path={path} render={({match}) => {
+                            const Component = component;
+                            return match.params.id ? <Component id={match.params.id}/> : <Component id={''}/>
+                        }} exact={true}/>
                     )}
-                    {/* Если попал на не существующий */}
                     <Redirect to={'/'}/>
                 </Switch>
                 </div>
