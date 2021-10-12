@@ -1,17 +1,16 @@
 import firebase from "firebase";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, firestore } from "..";
 import Loader from "../components/Loader";
-import { activity, trainingWeek, weekEdges } from "../types/ContentTypes";
+import { activity, trainingWeek, weekEdges, weekProps } from "../types/ContentTypes";
 import { getWeekView } from "../utils/Functions";
 import { getWeekEdges } from "../utils/getWeekEdges";
 import ActivityCard from "../components/ActivityCard";
 import { initialActivities } from "../utils/Constants";
 
-const Home = () => {
+const Home = ({ week, setWeek, postPlanned, postCompleted }: weekProps) => {
     const [user] = useAuthState(auth)
-    const [week, setWeek] = useState<trainingWeek | null>(null); // think how reuse START
 
     useEffect(() => {
         document.title = 'Home'
@@ -46,23 +45,6 @@ const Home = () => {
         }
         setWeek({...weekData, id: querySnapshot.docs[0].id});
     }
-
-    // think how reuse START
-    const postCompleted = async (completed: number, name: string) => {
-        const activity = week!.activities.find(activity => activity.name === name) as activity
-        const updatedActivity = { ...activity, completed: activity.completed + completed }
-        const updatedActivities = week!.activities.map((activity: activity) => activity.name === updatedActivity.name ? updatedActivity : activity) as activity[]
-        setWeek({ ...week!, activities: updatedActivities})
-        await firestore.collection('weeks').doc(week!.id).update({activities: updatedActivities})
-    }
-    const postPlanned = async (planned: number, name: string) => {
-        const activity = week!.activities.find(activity => activity.name === name) as activity
-        const updatedActivity = { ...activity, planned }
-        const updatedActivities = week!.activities.map((activity) => activity.name === updatedActivity.name ? updatedActivity : activity)
-        setWeek({ ...week!, activities: updatedActivities})
-        await firestore.collection('weeks').doc(week!.id).update({activities: updatedActivities})
-    }
-    // think how reuse END
 
     if (!week) return <Loader/>
 

@@ -33,3 +33,10 @@ export interface trainingWeek {
     id: string
     weekEdges: weekEdges
 }
+
+export interface weekProps {
+    week: trainingWeek
+    setWeek: (week: trainingWeek) => void
+    postPlanned: () => void
+    postCompleted: () => void
+}

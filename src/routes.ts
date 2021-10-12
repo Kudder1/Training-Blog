@@ -1,10 +1,11 @@
-import WeekCard from "./components/WeekCard";
+import WeekPage from "./pages/WeekPage";
 import ContentForm from "./pages/ContentForm";
 import Elements from "./pages/Elements"
 import Goals from "./pages/Goals"
 import Home from "./pages/Home"
 import Login from "./pages/Login"
 import Weeks from "./pages/Weeks";
+import { WithWeek } from "./utils/WeekHOC";
 
 export const LOGIN_ROUTE = '/login';
 export const GOALS_ROUTE = '/goals';
@@ -23,26 +24,26 @@ export const publicRoutes = [
 export const privateRoutes = [
     {
         path: '/',
-        component: Home
+        Component: WithWeek(Home)
     },
     {
         path: GOALS_ROUTE,
-        component: Goals
+        Component: Goals
     },
     {
         path: ELEMENTS_ROUTE,
-        component: Elements
+        Component: Elements
     },
     {
         path: ADDING_ROUTE,
-        component: ContentForm,
+        Component: ContentForm,
     },
     {
         path: WEEKS_ROUTE,
-        component: Weeks,
+        Component: Weeks,
     },
     {
         path: WEEK_ROUTE,
-        component: WeekCard,
+        Component: WithWeek(WeekPage),
     },
 ]
