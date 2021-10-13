@@ -19,7 +19,10 @@ const ActivityCard = ({ activity, postCompleted, postPlanned }: ActivityCardProp
     const plannedRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
-     if (plannedEdit) plannedRef.current?.focus()
+     if (plannedEdit) {
+        plannedRef.current?.focus()
+        plannedRef.current?.click()
+     }
     }, [plannedEdit])
 
     const iceRinkPercent = useMemo(() => {
@@ -51,12 +54,12 @@ const ActivityCard = ({ activity, postCompleted, postPlanned }: ActivityCardProp
                     {plannedEdit ?
                         <>
                             <input ref={plannedRef} maxLength={3} value={plannedValue} onChange={e => setPlannedValue(+e.target.value)} inputMode="decimal" className="completed-input"/>
-                            <button onClick={onPlanSave} className="completed-btn completed-btn_save"><SaveIcon/></button>
+                            <button aria-label="Save Planned" onClick={onPlanSave} className="completed-btn completed-btn_save"><SaveIcon/></button>
                         </>
                         :
                         <>
                             <span className="completed-plan">{planned}</span>
-                            <button className="completed-btn completed-btn_edit" onClick={() => setPlannedEdit(true)}><EditIcon fill="#000"/></button>
+                            <button aria-label="Edit Planned" className="completed-btn completed-btn_edit" onClick={() => setPlannedEdit(true)}><EditIcon fill="#000"/></button>
                         </>
                     }
                 </div>
@@ -66,7 +69,7 @@ const ActivityCard = ({ activity, postCompleted, postPlanned }: ActivityCardProp
                     <input value={completedValue} onChange={e => setCompletedValue(+e.target.value)} required maxLength={3} className="track-input" inputMode="decimal"/>
                     <label>{name === 'Ice Rink' ? 'Minutes' : 'Times'}</label>
                 </fieldset>
-                <button disabled={!completedValue} className="track-btn">Track</button>
+                <button aria-label="Track Progress" disabled={!completedValue} className="track-btn">Track</button>
             </form>
         </div>
         <div className="activity-section__item">

@@ -44,14 +44,14 @@ const ElementCard = ({element, informer}: ElementCardProps) => {
         <article className={`element element_${element.status} ${isEdit ? 'element_edit' : ''} ${informer ? 'element_informer' : ''}`}>
             {!informer ? 
                 <div style={{width: frontBlockWidth}} className="element-container element-container_back">
-                    <button onClick={sendElement} className="element__edit">
+                    <button aria-label="Save Element" onClick={sendElement} className="element__edit">
                         <SaveIcon/>
                     </button>
                     <div className="element__title-wrap">
                         <input name="title" onChange={handleInputChange} value={values.title} className="element__title element__title_edit"/>
                     </div>
                     <span className="element__category">{element.category}</span>
-                    <textarea rows={values.description.length / 29} name="description" value={values.description} onChange={handleInputChange} className="element__text element__text_edit">{values.description}</textarea>
+                    <textarea rows={2} name="description" value={values.description} onChange={handleInputChange} className="element__text element__text_edit">{values.description}</textarea>
                     <select name="status" onChange={handleInputChange} className="element__status_edit" required value={values.status}>
                         {statuses.map(status => (
                             <option key={status}>{status}</option>
@@ -60,7 +60,7 @@ const ElementCard = ({element, informer}: ElementCardProps) => {
                 </div>
             : null}
             <div ref={frontBlock} className="element-container element-container_front">
-                {!informer ? <button onClick={() => setIsEdit(true)} className="element__edit">
+                {!informer ? <button onClick={() => setIsEdit(true)} aria-label="Edit Element" className="element__edit">
                     <EditIcon/>
                 </button>
                  : null}

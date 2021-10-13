@@ -12,7 +12,7 @@ const ProgressPie = ({percent, degree}: ProgressPieProps) => {
         degree = 0
     }
     return (
-        <div className={`progress-pie-chart ${percent >= 50 ? 'gt-50' : ''}`} data-percent={percent}>
+        <div className={`progress-pie-chart ${percent >= 50 ? 'gt-50' : ''} ${percent >= 75 ? 'gt-75' : ''}`} data-percent={percent}>
             <div className="ppc-progress">
                 <div
                     className="ppc-progress-fill"

@@ -68,14 +68,14 @@ const GoalCard = ({ goal }: GoalCardProps) => {
                     <p className="goal__description">{goal.description}</p>
                 }
                 <div className="action-panel">
-                    <button onClick={toggleDone} type="button" className="action-panel__item action-panel__item_done">
+                    <button onClick={toggleDone} aria-label="Toggle Goal Done" type="button" className="action-panel__item action-panel__item_done">
                         { goal.isDone ? <><NotDoneIcon/>Not Done</> : <><DoneIcon/>Done</> }
                     </button>
                     { isEdit ? 
-                        <button onClick={sendGoal} className="action-panel__item"><SaveIcon/>Save</button> : 
-                        <button onClick={() => setIsEdit(true)} className="action-panel__item"><EditIcon/>Edit</button>
+                        <button onClick={sendGoal} aria-label="Save Goal" className="action-panel__item"><SaveIcon/>Save</button> : 
+                        <button onClick={() => setIsEdit(true)} aria-label="Edit Goal" className="action-panel__item"><EditIcon/>Edit</button>
                     }
-                    <button onClick={deleteGoal} type="button" className="action-panel__item">
+                    <button onClick={deleteGoal} type="button" aria-label="Delete Goal" className="action-panel__item">
                         <DeleteIcon/>
                         Delete
                     </button>

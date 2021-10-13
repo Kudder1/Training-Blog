@@ -203,6 +203,7 @@ main {
   font-size: 1rem;
   padding: 0 5px;
   border-bottom: 1px solid #ccc;
+  border-radius: 0;
 }
 
 .completed-btn {
@@ -319,6 +320,15 @@ $size: 166px;
     color: #ccc
   }
   &.gt-50 {
+    background-color: #f79400;
+    .ppc-progress-fill {
+      background: #f79400;
+    }
+    .ppc-percents span {
+      color: #f79400;
+    }
+  }
+  &.gt-75 {
     background-color: #81CE97;
     .ppc-progress-fill {
       background: #81CE97;
@@ -392,9 +402,10 @@ $size: 166px;
   flex: 0 0 100%;
   max-width: 100%;
   padding: 0 10px;
-  margin-bottom: 17px;
+  margin-bottom: 20px;
   transition: 0.3s;
   position: relative;
+  backface-visibility: hidden;
   &_edit {
     .element-container_front {
       transform: rotateY(180deg);
@@ -436,6 +447,7 @@ $size: 166px;
     box-shadow: 0px 0px 16px rgba(0, 0, 0, .15);
     background: rgba(255,255,255,.72);
     position: relative;
+    backface-visibility: hidden;
     &_front {
       z-index: 1;
       transition: .7s;
@@ -786,7 +798,10 @@ select {
     color: grey;
     pointer-events: none;
     transition: 0.25s;
-  }           
+  }
+  input[type="date"] {
+    min-height: 100%;
+  }        
 }
 
 input, select, textarea {

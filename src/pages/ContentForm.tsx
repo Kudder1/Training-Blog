@@ -116,7 +116,7 @@ const ContentForm = ({ location }: ContentFormProps) => {
                 </fieldset>
                 : null
             }
-            <button type="submit">Submit</button>
+            <button aria-label={`Submit ${values.type}`} type="submit">Submit</button>
         </form>
     );
 };
