@@ -19,10 +19,7 @@ const ActivityCard = ({ activity, postCompleted, postPlanned }: ActivityCardProp
     const plannedRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
-     if (plannedEdit) {
-        plannedRef.current?.focus()
-        plannedRef.current?.click()
-     }
+     if (plannedEdit) plannedRef.current?.focus()
     }, [plannedEdit])
 
     const iceRinkPercent = useMemo(() => {

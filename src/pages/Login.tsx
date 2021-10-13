@@ -7,9 +7,12 @@ const Login = () => {
         await auth.signInWithPopup(provider);
     }
     return (
-        <div>
-           <button onClick={login}>login with google</button> 
-        </div>
+        <main className="login-page">
+            <section className="login-page-container">
+            <h1 className="main-heading">Welcome to training platform</h1>
+                <button aria-label="Sign in with google" className="login-page__btn" onClick={login}>Sign in with Google</button>
+            </section>
+        </main>
     );
 };
 

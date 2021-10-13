@@ -76,6 +76,39 @@ main {
   }
 }
 
+.login-page {
+  background: url('./assets/skater-bg.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  &-container {
+    background: rgba(255,255,255,.7);
+    border-radius: 4px;
+    max-width: 50%;
+    padding: 30px;
+    margin: auto;
+    height: 300px;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    @media (max-width: 500px) {
+      max-width: 80%;
+    }
+  }
+  &__btn {
+    padding: 30px 25px;
+    border-radius: 6px;
+    color: #fff;
+    background-color: #3f51b5;
+    font-size: 1.3rem;
+  }
+}
+
 .main-menu-heading {
   display: flex;
   justify-content: space-between;
@@ -405,7 +438,6 @@ $size: 166px;
   margin-bottom: 20px;
   transition: 0.3s;
   position: relative;
-  backface-visibility: hidden;
   &_edit {
     .element-container_front {
       transform: rotateY(180deg);
@@ -414,7 +446,7 @@ $size: 166px;
     }
     .element-container_back {
       transform: rotateY(0deg);
-      z-index: 2;
+      z-index: 3;
       opacity: 1;
     }
     .element-container {
@@ -447,7 +479,7 @@ $size: 166px;
     box-shadow: 0px 0px 16px rgba(0, 0, 0, .15);
     background: rgba(255,255,255,.72);
     position: relative;
-    backface-visibility: hidden;
+    transform-style: preserve-3d;
     &_front {
       z-index: 1;
       transition: .7s;
@@ -799,8 +831,11 @@ select {
     pointer-events: none;
     transition: 0.25s;
   }
+  input[type="text"], textarea {
+    appearance: none;
+  }
   input[type="date"] {
-    min-height: 100%;
+    min-height: 45px;
   }        
 }
 
