@@ -63,7 +63,7 @@ const ActivityCard = ({ activity, postCompleted, postPlanned }: ActivityCardProp
             </div>
             <form onSubmit={onCompletedSubmit} className="activity-tracking d-flex">
                 <fieldset className="input-box">
-                    <input value={completedValue} onChange={e => setCompletedValue(+e.target.value)} required maxLength={3} className="track-input" inputMode="decimal"/>
+                    <input value={completedValue} onChange={e => setCompletedValue(+e.target.value)} required maxLength={3} className="track-input" inputMode="decimal" type="text"/>
                     <label>{name === 'Ice Rink' ? 'Minutes' : 'Times'}</label>
                 </fieldset>
                 <button aria-label="Track Progress" disabled={!completedValue} className="track-btn">Track</button>

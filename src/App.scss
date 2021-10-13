@@ -437,7 +437,6 @@ $size: 166px;
   max-width: 100%;
   padding: 0 10px;
   margin-bottom: 20px;
-  transition: 0.3s;
   position: relative;
   &_edit {
     .element-container_front {
@@ -447,7 +446,7 @@ $size: 166px;
     }
     .element-container_back {
       transform: rotateY(0deg);
-      z-index: 3;
+      z-index: 2;
       opacity: 1;
     }
     input, textarea, select {
@@ -477,16 +476,18 @@ $size: 166px;
     box-shadow: 0px 0px 16px rgba(0, 0, 0, .15);
     background: rgba(255,255,255,.72);
     position: relative;
+    transition: .7s;
+    @supports (-webkit-touch-callout: none) {
+      transition: none;
+    }
     &_front {
-      z-index: 1;
-      transition: .7s;
+      z-index: 2;
     }
     &_back {
       position: absolute;
       top: 0;
       transform: rotateY(-180deg);
       z-index: -1;
-      transition: .7s;
       opacity: 0;
     }
   }
@@ -838,6 +839,7 @@ select {
 
 input[type="text"], textarea {
   appearance: none;
+  box-shadow: none;
 }
 
 input, select, textarea {
