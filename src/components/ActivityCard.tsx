@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { activity } from "../types/ContentTypes";
 import { ReactComponent as EditIcon } from '../assets/edit-icon.svg';
 import { ReactComponent as SaveIcon } from '../assets/save-icon.svg';
@@ -16,6 +16,11 @@ const ActivityCard = ({ activity, postCompleted, postPlanned }: ActivityCardProp
     const [completedValue, setCompletedValue] = useState('' as number | string);
     const [plannedValue, setPlannedValue] = useState(planned as number);
     const [plannedEdit, setPlannedEdit] = useState(false);
+    const plannedRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+     if (plannedEdit) plannedRef.current?.focus()
+    }, [plannedEdit])
 
     const iceRinkPercent = useMemo(() => {
         return Math.floor(activity.completed * 100 / activity.planned)
@@ -45,7 +50,7 @@ const ActivityCard = ({ activity, postCompleted, postPlanned }: ActivityCardProp
                     <span><b>Progress:</b> {completed} / </span>
                     {plannedEdit ?
                         <>
-                            <input maxLength={3} value={plannedValue} onChange={e => setPlannedValue(+e.target.value)} className="completed-input"/>
+                            <input ref={plannedRef} maxLength={3} value={plannedValue} onChange={e => setPlannedValue(+e.target.value)} inputMode="decimal" className="completed-input"/>
                             <button onClick={onPlanSave} className="completed-btn completed-btn_save"><SaveIcon/></button>
                         </>
                         :
