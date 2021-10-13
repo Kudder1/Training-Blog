@@ -7,7 +7,6 @@ import { categories, statuses } from '../utils/Constants';
 
 const Elements = () => {
     const [ elements ]: any = useCollectionData(firestore.collection('elements').orderBy('createdAt', 'desc'), { idField: 'id' });
-    // подумать про кеширование useCollectionData
     const [ statusFilter, setStatusFilter] = useState('all');
     const [ categoryFilter, setCategoryFilter] = useState('all');
 

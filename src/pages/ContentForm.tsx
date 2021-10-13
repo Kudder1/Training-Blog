@@ -60,9 +60,9 @@ const ContentForm = ({ location }: ContentFormProps) => {
         });
     };
 
-    const onContentSubmit = (e: React.FormEvent) => {
+    const onContentSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        sendCollection();
+        await sendCollection();
         values.type === 'element' ? history.push(ELEMENTS_ROUTE) : history.push(GOALS_ROUTE);
     }
 
