@@ -50,6 +50,7 @@ const ElementCard = ({element, informer}: ElementCardProps) => {
                     <div className="element__title-wrap">
                         <input name="title" onChange={handleInputChange} value={values.title} className="element__title element__title_edit"/>
                     </div>
+                    <span className="element__category">{element.category}</span>
                     <textarea rows={values.description.length / 29} name="description" value={values.description} onChange={handleInputChange} className="element__text element__text_edit">{values.description}</textarea>
                     <select name="status" onChange={handleInputChange} className="element__status_edit" required value={values.status}>
                         {statuses.map(status => (
@@ -64,7 +65,10 @@ const ElementCard = ({element, informer}: ElementCardProps) => {
                 </button>
                  : null}
                 <div className="element__title-wrap"><h3 className="element__title">{element.title}</h3></div>
-                <p className="element__text">{element.description}</p>
+                <p className="element__text">
+                    <span className="element__category">{element.category}</span>
+                    <span>{element.description}</span>
+                </p>
                 <p className="element__status">{element.status}</p>
             </div>
         </article>

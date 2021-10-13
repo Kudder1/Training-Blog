@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
-import { privateRoutes } from '../routes';
+import { Route, Switch, Redirect, useLocation, NavLink } from 'react-router-dom';
+import { ADDING_ROUTE, privateRoutes } from '../routes';
 
 const Main = () => {
     const location = useLocation();
@@ -23,6 +23,7 @@ const Main = () => {
                     <Redirect to={'/'}/>
                 </Switch>
                 </div>
+                <NavLink title="Add something new!" className="add-new" to={{pathname: ADDING_ROUTE, state: { from: path }}}>+</NavLink>
             </div>
         </>
     );

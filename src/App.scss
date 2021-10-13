@@ -370,7 +370,7 @@ $size: 166px;
   flex: 0 0 100%;
   max-width: 100%;
   padding: 0 10px;
-  margin-bottom: 10px;
+  margin-bottom: 17px;
   transition: 0.3s;
   position: relative;
   &_edit {
@@ -409,7 +409,7 @@ $size: 166px;
     }
   }
   &-container {
-    padding: 15px;
+    padding: 20px 15px 15px;
     border-radius: 4px;
     box-shadow: 0px 0px 16px rgba(0, 0, 0, .15);
     background: rgba(255,255,255,.72);
@@ -467,12 +467,23 @@ $size: 166px;
   &__text {
     margin-bottom: 15px;
     font-size: 1rem;
+    white-space: pre-wrap;
     &_edit {
       max-width: 100%;
       min-width: 100%;
       width: 100%;
       display: block;
     }
+  }
+  &__category {
+    color: #fff;
+    background-color: #7789e9;
+    padding: 5px;
+    border-radius: 6px;
+    font-size: 13px;
+    position: absolute;
+    top: -13px;
+    left: 0;
   }
   &_progress {
     .element__title-wrap {
@@ -545,6 +556,7 @@ $size: 166px;
   &__description {
     margin-bottom: 10px;
     font-size: 15px;
+    white-space: pre-wrap;
   }
   &_done {
     .goal__name {
@@ -777,7 +789,7 @@ button[type="submit"] {
 }
 
 .filters {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   display: flex;
   background: rgba(255, 255, 255, 0.72);
   border-radius: 4px;

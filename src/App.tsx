@@ -1,6 +1,6 @@
-import { BrowserRouter as Router, NavLink } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 import { Route, Switch, Redirect } from 'react-router-dom';
-import { ADDING_ROUTE, LOGIN_ROUTE } from './routes';
+import { LOGIN_ROUTE } from './routes';
 import './App.scss'
 import Informer from './components/Informer';
 import MainMenu from './components/MainMenu';
@@ -27,7 +27,6 @@ function App() {
           <Search />
           <Main />
         </main>
-        <NavLink title="Add something new!" className="add-new" to={ADDING_ROUTE}>+</NavLink>
       </>
       :
       <Switch>

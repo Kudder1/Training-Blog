@@ -5,6 +5,7 @@ import { auth, firestore } from '..';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import firebase from 'firebase';
 import { categories, contentTypes, statuses } from '../utils/Constants';
+import { stateLocation } from '../types/ContentTypes';
 
 const initialValues = {
     type: '',
@@ -16,12 +17,22 @@ const initialValues = {
     isDone: false,
 }
 
-const ContentForm = () => {
+type ContentFormProps = {
+    location: stateLocation
+}
+
+const ContentForm = ({ location }: ContentFormProps) => {
     const history = useHistory();
     const [values, setValues] = useState(initialValues);
     const [user] = useAuthState(auth)
 
-    useEffect(() => { document.title = 'Adding Form' }, [])
+    useEffect(() => {
+        document.title = 'Adding Form'
+        const referrer = location.state.from;
+        if (referrer === 'elements' || referrer === 'goals') {
+            setValues({...values, type: referrer.substring(0, referrer.length - 1)})
+        }
+    }, [])
 
     const getFields = () => {
         if (values.type === 'element') {
@@ -83,7 +94,7 @@ const ContentForm = () => {
                 <label>Title</label>
             </fieldset>
             <fieldset className="input-box">
-                <textarea rows={4} required name="description" onChange={handleInputChange} value={values.description}></textarea>
+                <textarea rows={4} name="description" onChange={handleInputChange} value={values.description}></textarea>
                 <label>Description</label>
             </fieldset>
             {values.type === 'element' ?

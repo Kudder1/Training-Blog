@@ -40,3 +40,8 @@ export interface weekProps {
     postPlanned: () => void
     postCompleted: () => void
 }
+export interface stateLocation extends Location {
+    state: {
+        from?: string
+    }
+}
