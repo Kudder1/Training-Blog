@@ -106,6 +106,7 @@ main {
     color: #fff;
     background-color: #3f51b5;
     font-size: 1.3rem;
+    cursor: pointer;
   }
 }
 
@@ -449,9 +450,6 @@ $size: 166px;
       z-index: 3;
       opacity: 1;
     }
-    .element-container {
-      background: #fff;
-    }
     input, textarea, select {
       border: 1px solid #000;
       border-radius: 4px;
@@ -479,7 +477,6 @@ $size: 166px;
     box-shadow: 0px 0px 16px rgba(0, 0, 0, .15);
     background: rgba(255,255,255,.72);
     position: relative;
-    transform-style: preserve-3d;
     &_front {
       z-index: 1;
       transition: .7s;
@@ -539,6 +536,9 @@ $size: 166px;
       min-width: 100%;
       width: 100%;
       display: block;
+      @media (max-width: 500px) {
+        min-height: 60px;
+      }
     }
   }
   &__category {
@@ -831,12 +831,13 @@ select {
     pointer-events: none;
     transition: 0.25s;
   }
-  input[type="text"], textarea {
-    appearance: none;
-  }
   input[type="date"] {
     min-height: 45px;
   }        
+}
+
+input[type="text"], textarea {
+  appearance: none;
 }
 
 input, select, textarea {
