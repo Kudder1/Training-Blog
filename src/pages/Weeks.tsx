@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { useCollectionDataOnce } from 'react-firebase-hooks/firestore';
 import { NavLink } from 'react-router-dom';
-import { firestore } from '..';
-import { WEEKS_ROUTE } from '../routes';
-import { trainingWeek } from '../types/ContentTypes';
-import { getWeekView } from '../utils/Functions';
+import { firestore } from 'index';
+import { WEEKS_ROUTE } from 'routes';
+import { trainingWeek } from 'types/ContentTypes';
+import { getWeekView } from 'utils/Functions';
 
 const Weeks = () => {
     const [ weeksF ]: any = useCollectionDataOnce(firestore.collection('weeks').orderBy('createdAt', 'desc'), { idField: 'id' });

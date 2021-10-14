@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { activity } from "../types/ContentTypes";
-import { ReactComponent as EditIcon } from '../assets/edit-icon.svg';
-import { ReactComponent as SaveIcon } from '../assets/save-icon.svg';
-import ProgressPie from "../components/ProgressPie";
+import { activity } from "types/ContentTypes";
+import { ReactComponent as EditIcon } from 'assets/edit-icon.svg';
+import { ReactComponent as SaveIcon } from 'assets/save-icon.svg';
+import ProgressPie from "components/ProgressPie";
 
 type ActivityCardProps = {
     activity: activity;

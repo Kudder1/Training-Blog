@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Route, Switch, Redirect, useLocation, NavLink } from 'react-router-dom';
-import { ADDING_ROUTE, privateRoutes } from '../routes';
+import { ADDING_ROUTE, privateRoutes } from 'routes';
 
 const Main = () => {
     const location = useLocation();
@@ -14,7 +14,7 @@ const Main = () => {
 
     return (
         <>
-            <div className="main">
+            <div className="main main-bg">
                 <div className={`main-content main-content_${path ? path : 'home'} block`}>
                 <Switch>
                     {privateRoutes.map(({path, Component}) =>

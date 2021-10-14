@@ -1,32 +1,27 @@
 import firebase from "firebase";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, firestore } from "..";
-import Loader from "../components/Loader";
-import { activity, trainingWeek, weekEdges, weekProps } from "../types/ContentTypes";
-import { getWeekView } from "../utils/Functions";
-import { getWeekEdges } from "../utils/getWeekEdges";
-import ActivityCard from "../components/ActivityCard";
-import { initialActivities } from "../utils/Constants";
+import { auth, firestore } from "index";
+import Loader from "components/Loader";
+import { activity, trainingWeek, weekEdges, weekProps } from "types/ContentTypes";
+import { getWeekView } from "utils/Functions";
+import { getWeekEdges } from "utils/getWeekEdges";
+import ActivityCard from "components/ActivityCard";
+import { initialActivities } from "utils/Constants";
 
 const Home = ({ week, setWeek, postPlanned, postCompleted }: weekProps) => {
     const [user] = useAuthState(auth)
 
-    useEffect(() => {
-        document.title = 'Home'
-        fetchWeek();
-    }, [])
-
-    const sendWeek = async (weekEdges: weekEdges) => {
+    const sendWeek = useCallback(async (weekEdges: weekEdges) => {
         await firestore.collection('weeks').add({
             uid: user.uid,
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
             weekEdges,
             activities: initialActivities,
         })
-    }
+    }, [user.uid])
 
-    const fetchWeek = async () => {
+    const fetchWeek = useCallback(async () => {
         const querySnapshot = await firestore.collection('weeks').orderBy('createdAt', 'desc').limit(1).get();
         const weekDoc = querySnapshot.docs[0];
         if (!weekDoc) {
@@ -44,7 +39,12 @@ const Home = ({ week, setWeek, postPlanned, postCompleted }: weekProps) => {
             return;
         }
         setWeek({...weekData, id: querySnapshot.docs[0].id});
-    }
+    }, [setWeek, sendWeek])
+
+    useEffect(() => {
+        document.title = 'Home'
+        fetchWeek();
+    }, [fetchWeek])
 
     if (!week) return <Loader/>
 

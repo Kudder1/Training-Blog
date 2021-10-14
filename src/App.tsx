@@ -1,15 +1,14 @@
-import { BrowserRouter as Router } from 'react-router-dom'
-import { Route, Switch, Redirect } from 'react-router-dom';
-import { LOGIN_ROUTE } from './routes';
-import './App.scss'
-import Informer from './components/Informer';
-import MainMenu from './components/MainMenu';
-import Search from './components/Search';
-import Login from './pages/Login';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+import { LOGIN_ROUTE } from 'routes';
+import 'App.scss'
+import Informer from 'components/Informer';
+import MainMenu from 'components/MainMenu';
+import Search from 'components/Search';
+import Login from 'pages/Login';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import Loader from './components/Loader';
-import Main from './components/Main';
-import { auth } from '.';
+import Loader from 'components/Loader';
+import Main from 'components/Main';
+import { auth } from 'index';
 
 function App() {
   const [ user, loading ] = useAuthState(auth);

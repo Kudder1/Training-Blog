@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { firestore } from "..";
-import { elementFields } from "../types/ContentTypes";
-import { statuses } from "../utils/Constants";
-import { ReactComponent as EditIcon } from '../assets/edit-icon.svg';
-import { ReactComponent as SaveIcon } from '../assets/save-icon.svg';
+import { firestore } from "index";
+import { elementFields } from "types/ContentTypes";
+import { statuses } from "utils/Constants";
+import { ReactComponent as EditIcon } from 'assets/edit-icon.svg';
+import { ReactComponent as SaveIcon } from 'assets/save-icon.svg';
 
 type ElementCardProps = {
     element: elementFields;

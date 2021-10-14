@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { firestore } from '..';
-import ElementCard from '../components/ElementCard';
-import { elementFields } from '../types/ContentTypes';
-import { categories, statuses } from '../utils/Constants';
+import { firestore } from 'index';
+import { elementFields } from 'types/ContentTypes';
+import { categories, statuses } from 'utils/Constants';
+import ElementCard from './ElementCard';
 
 const Elements = () => {
     const [ elements ]: any = useCollectionData(firestore.collection('elements').orderBy('createdAt', 'desc'), { idField: 'id' });

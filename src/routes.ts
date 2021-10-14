@@ -1,11 +1,11 @@
-import WeekPage from "./pages/WeekPage";
-import ContentForm from "./pages/ContentForm";
-import Elements from "./pages/Elements"
-import Goals from "./pages/Goals"
-import Home from "./pages/Home"
-import Login from "./pages/Login"
-import Weeks from "./pages/Weeks";
-import { WithWeek } from "./utils/WeekHOC";
+import WeekPage from "pages/WeekPage";
+import ContentForm from "pages/ContentForm";
+import Elements from "pages/Elements/Elements";
+import Goals from "pages/Goals/Goals";
+import Home from "pages/Home";
+import Login from "pages/Login";
+import Weeks from "pages/Weeks";
+import { WithWeek } from "utils/WeekHOC";
 
 export const LOGIN_ROUTE = '/login';
 export const GOALS_ROUTE = '/goals';

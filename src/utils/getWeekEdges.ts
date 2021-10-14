@@ -1,4 +1,4 @@
-import { weekEdges } from "../types/ContentTypes";
+import { weekEdges } from "types/ContentTypes";
 
 export const getWeekEdges = (): weekEdges => {
     const start = 1;

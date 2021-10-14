@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { ELEMENTS_ROUTE, GOALS_ROUTE, WEEKS_ROUTE } from '../routes';
+import { ELEMENTS_ROUTE, GOALS_ROUTE, WEEKS_ROUTE } from 'routes';
 import Burger from './Burger';
 
 const MainMenu = () => {

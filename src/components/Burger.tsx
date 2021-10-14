@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Burger = () => {
     const onBurgerClick = () => {
         document.body.classList.toggle('burger-open');

@@ -1,4 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+$base_shadow: 0px 0px 16px rgba(0, 0, 0, .15);
+
+$base_blue: #3f51b5;
+$base_blue_hov: #303f9f;
+$base_orange: #f79400;
+$base_green: #2ED47A;
+$pie_green: #81CE97;
+$base_lightgray: #ccc;
+
+$max_lg: 1200px;
+$max_md: 922px;
+$max_xs: 500px;
+
 * {
   margin: 0;
   padding: 0;
@@ -26,7 +40,7 @@ html, body, aside, main, #root {
 
 .block {
   background: #fff;
-  box-shadow: 0px 0px 16px rgba(0, 0, 0, .15);
+  box-shadow: $base_shadow;
   min-width: 260px;
   width: 260px;
 }
@@ -40,14 +54,17 @@ main {
 }
 
 .main {
+  padding: 40px;
+  min-height: 100%;
+  @media (max-width: $max_md) {
+    padding: 15px;
+  }
+}
+
+.main-bg {
   background: url('./assets/skater-bg.jpg');
   background-size: cover;
   background-attachment: fixed;
-  padding: 40px;
-  min-height: 100%;
-  @media (max-width: 992px) {
-    padding: 15px;
-  }
 }
 
 .main-heading {
@@ -77,9 +94,6 @@ main {
 }
 
 .login-page {
-  background: url('./assets/skater-bg.jpg');
-  background-size: cover;
-  background-attachment: fixed;
   &-container {
     background: rgba(255,255,255,.7);
     border-radius: 4px;
@@ -96,7 +110,7 @@ main {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    @media (max-width: 500px) {
+    @media (max-width: $max_xs) {
       max-width: 80%;
     }
   }
@@ -104,7 +118,7 @@ main {
     padding: 30px 25px;
     border-radius: 6px;
     color: #fff;
-    background-color: #3f51b5;
+    background-color: $base_blue;
     font-size: 1.3rem;
     cursor: pointer;
   }
@@ -120,19 +134,19 @@ main {
   padding: 10px 6px 20px;
   list-style: none;
   a {
-    color: #3f51b5;
+    color: $base_blue;
     text-decoration: none;
     padding: 7px;
     display: block;
     font-size: 1.05rem;
     border-left: 2px solid transparent;
     &:hover {
-      background: rgba(#efefef, $alpha: .4);
+      background: rgba(#efefef, .4);
     }
     &.active {
       font-weight: bold;
       border-color: #F7685B;
-      background: rgba(#efefef, $alpha: .8);
+      background: rgba(#efefef, .8);
     }
   }
 }
@@ -149,7 +163,7 @@ main {
 
 .sidebar-left {
   padding: 15px;
-  @media (max-width: 992px) {
+  @media (max-width: $max_md) {
     width: 100%;
     position: fixed;
     overflow: auto;
@@ -190,7 +204,7 @@ main {
   z-index: 990;
   cursor: pointer;
   position: relative;
-  @media (max-width: 992px) {
+  @media (max-width: $max_md) {
     display: block;
   }
   &__item {
@@ -200,7 +214,7 @@ main {
     width: 32px;
     height: 6px;
     border-radius: 1px;
-    background: #3f51b5;
+    background: $base_blue;
     transition: all 0.4s;
     &-1 {
       top: 0;
@@ -219,10 +233,10 @@ main {
 .search-bar {
   display: flex;
   padding: 5px;
-  @media (max-width: 992px) {
+  @media (max-width: $max_md) {
     position: sticky;
     top: 0;
-    background: white;
+    background: #fff;
     z-index: 9;
     padding: 15px;
   }
@@ -236,7 +250,7 @@ main {
   width: 38px;
   font-size: 1rem;
   padding: 0 5px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid $base_lightgray;
   border-radius: 0;
 }
 
@@ -254,7 +268,7 @@ main {
 
 .activity-progress__text {
   margin-right: 5px;
-  @media (max-width: 480px) {
+  @media (max-width: $max_xs) {
     b {
       display: none;
     }
@@ -267,7 +281,7 @@ main {
   height: 100%;
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
-  @media (max-width: 480px) {
+  @media (max-width: $max_xs) {
     height: 40px;
     border-top-right-radius: 4px !important;
     border-bottom-left-radius: 0 !important;
@@ -278,11 +292,11 @@ main {
   width: 100px;
   cursor: pointer;
   color: #fff;
-  background: #3f51b5;
-  border: 1px solid #3f51b5;
+  background: $base_blue;
+  border: 1px solid $base_blue;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
-  @media (max-width: 480px) {
+  @media (max-width: $max_xs) {
     height: 40px;
     border-top-right-radius: 0;
     border-bottom-left-radius: 4px;
@@ -293,13 +307,13 @@ main {
     cursor: not-allowed;
   }
   &:hover {
-    background: #303f9f;
+    background: $base_blue_hov;
   }
 }
 
 .activity-tracking {
   height: 40px;
-  @media (max-width: 480px) {
+  @media (max-width: $max_xs) {
     flex-direction: column;
     height: auto;
   }
@@ -310,10 +324,10 @@ main {
 
 .activity-section {
   margin-bottom: 20px;
-  border: 1px solid #ccc;
+  border: 1px solid $base_lightgray;
   padding: 15px;
   background: #fff;
-  box-shadow: 0px 0px 16px rgba(0, 0, 0, .15);
+  box-shadow: $base_shadow;
   border-radius: 4px;
   max-width: 50%;
   display: flex;
@@ -351,24 +365,24 @@ $size: 166px;
   background-color: #E5E5E5;
   position: relative;
   &[data-percent="0"] .ppc-percents span {
-    color: #ccc
+    color: $base_lightgray
   }
   &.gt-50 {
-    background-color: #f79400;
+    background-color: $base_orange;
     .ppc-progress-fill {
-      background: #f79400;
+      background: $base_orange;
     }
     .ppc-percents span {
-      color: #f79400;
+      color: $base_orange;
     }
   }
   &.gt-75 {
-    background-color: #81CE97;
+    background-color: $pie_green;
     .ppc-progress-fill {
-      background: #81CE97;
+      background: $pie_green;
     }
     .ppc-percents span {
-      color: #81CE97;
+      color: $pie_green;
     }
   }
 }
@@ -378,7 +392,7 @@ $size: 166px;
   .ppc-progress-fill {
     @include circle($size);
     clip: rect(0, #{$size/2}, $size, 0);
-    background: #3f51b5;
+    background: $base_blue;
     transform: rotate(60deg);
   }
   .gt-50 & {
@@ -398,7 +412,7 @@ $size: 166px;
     display: block;
     font-size: 2.6em;
     font-weight: bold;
-    color: #3f51b5;
+    color: $base_blue;
   }
 }
 .pcc-percents-wrapper {
@@ -412,7 +426,7 @@ $size: 166px;
   margin-left: -10px;
   margin-right: -10px;
   &_informer {
-    @media (max-width: 992px) {
+    @media (max-width: $max_md) {
       flex-direction: column;
     }
   }
@@ -420,11 +434,11 @@ $size: 166px;
     .element {
       flex: 0 0 25%;
       max-width: 25%;
-      @media (max-width: 1200px) {
+      @media (max-width: $max_lg) {
         flex: 0 0 33.333333%;
         max-width: 33.333333%;
       }
-      @media (max-width: 992px) {
+      @media (max-width: $max_md) {
         flex: 0 0 50%;
         max-width: 50%;
       }
@@ -473,7 +487,7 @@ $size: 166px;
   &-container {
     padding: 25px 15px 15px;
     border-radius: 4px;
-    box-shadow: 0px 0px 16px rgba(0, 0, 0, .15);
+    box-shadow: $base_shadow;
     background: rgba(255,255,255,.72);
     position: relative;
     transition: .7s;
@@ -537,7 +551,7 @@ $size: 166px;
       min-width: 100%;
       width: 100%;
       display: block;
-      @media (max-width: 500px) {
+      @media (max-width: $max_xs) {
         min-height: 60px;
       }
     }
@@ -554,18 +568,18 @@ $size: 166px;
   }
   &_progress {
     .element__title-wrap {
-      border-color: #f79400;
+      border-color: $base_orange;
     }
     .element__status {
-      background: #f79400;
+      background: $base_orange;
     }
   }
   &_done {
     .element__title-wrap {
-      border-color: #2ED47A;
+      border-color: $base_green;
     }
     .element__status {
-      background: #2ED47A;
+      background: $base_green;
     }
   }
   &_pechal {
@@ -586,7 +600,7 @@ $size: 166px;
 .goal {
   padding: 15px;
   border-radius: 4px;
-  box-shadow: 0px 0px 16px rgba(0, 0, 0, .15);
+  box-shadow: $base_shadow;
   background: rgba(255,255,255,.72);
   position: relative;
   &:not(:last-child) {
@@ -610,7 +624,7 @@ $size: 166px;
   }
   &-container {
     max-width: 400px;
-    border-left: 5px solid #303f9f;
+    border-left: 5px solid $base_blue_hov;
     padding-left: 15px;
     position: relative;
   }
@@ -629,15 +643,15 @@ $size: 166px;
     .goal__name {
       text-decoration: line-through;
       svg {
-        fill: #2ED47A;
+        fill: $base_green;
         margin-left: 7px;
       }
     }
     .goal-container {
-      border-color: #2ED47A;
+      border-color: $base_green;
     }
     .action-panel__item {
-      background: #2ED47A;
+      background: $base_green;
       &:hover {
         background: #26bc6b;
       }
@@ -650,8 +664,8 @@ $size: 166px;
   &__item {
     display: flex;
     align-items: center;
-    background: #3f51b5;
-    border: 1px solid #ccc;
+    background: $base_blue;
+    border: 1px solid $base_lightgray;
     padding: 7px 23px;
     cursor: pointer;
     color: #fff;
@@ -659,7 +673,7 @@ $size: 166px;
     border-radius: 4px;
     transition: .3s;
     &:hover {
-      background: #303f9f;
+      background: $base_blue_hov;
       transition: .3s;
     }
     &_notdone {
@@ -700,7 +714,7 @@ $size: 166px;
 }
 
 .loader {
-  color: #3f51b5;
+  color: $base_blue;
   &_main .lds-hourglass {
     position: absolute;
     margin: auto;
@@ -750,7 +764,7 @@ $size: 166px;
   right: 30px;
   bottom: 30px;
   color: #fff;
-  background-color: #3f51b5;
+  background-color: $base_blue;
   text-decoration: none;
   font-size: 30px;
   border-radius: 50%;
@@ -760,7 +774,7 @@ $size: 166px;
   user-select: none;
   z-index: 99;
   &:hover {
-    background-color: #303f9f;
+    background-color: $base_blue_hov;
   }
 }
 
@@ -769,7 +783,7 @@ select {
 }
 
 .select {
-  border: 1px solid #ccc;
+  border: 1px solid $base_lightgray;
   padding: 5px;
   border-radius: 5px;
   min-width: 120px;
@@ -787,7 +801,7 @@ select {
   left: 10px;
   color: #1a73e8;
   font-size: 0.75rem;
-  background-color: white;
+  background-color: #fff;
   height: 10px;
   padding-left: 5px;
   padding-right: 5px;
@@ -802,7 +816,7 @@ select {
     padding: 0.625rem 10px;
     font-size: 1rem;
     letter-spacing: 0.062rem;
-    border: 1px solid #ccc;
+    border: 1px solid $base_lightgray;
     background: transparent;
     border-radius: 4px !important;
   }
@@ -869,7 +883,7 @@ button[type="submit"] {
   background: rgba(255, 255, 255, 0.72);
   border-radius: 4px;
   padding: 25px 20px 15px;
-  @media (max-width: 992px) {
+  @media (max-width: $max_md) {
     .filters__item {
       flex-grow: 1;
       select {
@@ -892,7 +906,7 @@ button[type="submit"] {
     background: transparent;
     top: -25px;
     left: 0;
-    color: #3f51b5;
+    color: $base_blue;
   }
 }
 
@@ -901,13 +915,13 @@ button[type="submit"] {
   text-decoration: none;
   font-size: 21px;
   font-weight: bold;
-  border-left: 4px solid #3f51b5;
+  border-left: 4px solid $base_blue;
   background: rgba(255, 255, 255, 0.7);
   margin-bottom: 20px;
   padding: 15px;
-  color: #3f51b5;
+  color: $base_blue;
   border-radius: 4px;
   &:first-of-type {
-    border-color: #2ED47A;
+    border-color: $base_green;
   }
 }

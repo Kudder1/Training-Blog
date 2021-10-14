@@ -1,4 +1,3 @@
-import React from 'react';
 import Burger from './Burger';
 
 const Search = () => {

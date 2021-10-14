@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { firestore } from "..";
-import { trainingWeek, activity } from "../types/ContentTypes";
+import { firestore } from 'index'
+import { trainingWeek, activity } from "types/ContentTypes";
 
 export const WithWeek = (Component: any) => {
     const WithWeekComponent = () => {

@@ -1,14 +1,14 @@
-import { goalFields } from '../types/ContentTypes';
-import { getDate, isOverdue } from '../utils/Functions';
-import { ReactComponent as EditIcon } from '../assets/edit-icon.svg';
-import { ReactComponent as SaveIcon } from '../assets/save-icon.svg';
-import { ReactComponent as DoneIcon } from '../assets/done-icon.svg';
-import { ReactComponent as NotDoneIcon } from '../assets/not-done-icon.svg';
-import { ReactComponent as DeleteIcon } from '../assets/delete-icon.svg';
-import { ReactComponent as CalendarIcon } from '../assets/calendar-icon.svg';
-import { ReactComponent as CalendarTimeIcon } from '../assets/calendar-time-icon.svg';
-import { firestore } from '..';
 import { useState } from 'react';
+import { firestore } from 'index';
+import { ReactComponent as EditIcon } from 'assets/edit-icon.svg';
+import { ReactComponent as SaveIcon } from 'assets/save-icon.svg';
+import { ReactComponent as DoneIcon } from 'assets/done-icon.svg';
+import { ReactComponent as NotDoneIcon } from 'assets/not-done-icon.svg';
+import { ReactComponent as DeleteIcon } from 'assets/delete-icon.svg';
+import { ReactComponent as CalendarIcon } from 'assets/calendar-icon.svg';
+import { ReactComponent as CalendarTimeIcon } from 'assets/calendar-time-icon.svg';
+import { goalFields } from 'types/ContentTypes';
+import { isOverdue, getDate } from 'utils/Functions';
 
 type GoalCardProps = {
     goal: goalFields;

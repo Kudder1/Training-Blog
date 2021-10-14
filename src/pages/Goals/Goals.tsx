@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { firestore } from "..";
-import GoalCard from "../components/GoalCard";
-import { goalFields } from "../types/ContentTypes";
+import { firestore } from "index";
+import { goalFields } from "types/ContentTypes";
+import GoalCard from "./GoalCard";
 
 const Goals = () => {
   const [ goals ]: any = useCollectionData(firestore.collection('goals').orderBy('createdAt', 'desc'), { idField: 'id' });

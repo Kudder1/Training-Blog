@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import { ELEMENTS_ROUTE, GOALS_ROUTE } from '../routes';
-import { auth, firestore } from '..';
+import { ELEMENTS_ROUTE, GOALS_ROUTE } from 'routes';
+import { auth, firestore } from 'index';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import firebase from 'firebase';
-import { categories, contentTypes, statuses } from '../utils/Constants';
-import { stateLocation } from '../types/ContentTypes';
+import { categories, contentTypes, statuses } from 'utils/Constants';
+import { stateLocation } from 'types/ContentTypes';
 
 const initialValues = {
     type: '',
@@ -30,9 +30,9 @@ const ContentForm = ({ location }: ContentFormProps) => {
         document.title = 'Adding Form'
         const referrer = location.state.from;
         if (referrer === 'elements' || referrer === 'goals') {
-            setValues({...values, type: referrer.substring(0, referrer.length - 1)})
+            setValues(values => ({...values, type: referrer.substring(0, referrer.length - 1)}) );
         }
-    }, [])
+    }, [location.state.from])
 
     const getFields = () => {
         if (values.type === 'element') {
