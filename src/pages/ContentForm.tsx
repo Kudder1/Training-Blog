@@ -6,6 +6,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import firebase from 'firebase';
 import { categories, contentTypes, statuses } from 'utils/Constants';
 import { stateLocation } from 'types/ContentTypes';
+import Input from 'components/FormElements/Input';
+import Select from 'components/FormElements/Select';
 
 const initialValues = {
     type: '',
@@ -68,53 +70,17 @@ const ContentForm = ({ location }: ContentFormProps) => {
 
     return (
         <form onSubmit={onContentSubmit} className="adding-form">
-            <fieldset className="input-box">
-                <select required name="type" className="select" onChange={handleInputChange} value={values.type}>
-                    <option value="" disabled>Type</option>
-                    {contentTypes.map(type =>
-                        <option key={type}>{type}</option>
-                    )}
-                </select>
-                <label>Type</label>
-            </fieldset>
+            <Select options={contentTypes} required onChange={handleInputChange} value={values.type} title="Type"/>
             {values.type === 'element' ?
-                <fieldset className="input-box">
-                    <select required name="category" className="select" onChange={handleInputChange} value={values.category}>
-                        <option value="" disabled>Category</option>
-                        {categories.map(category =>
-                            <option key={category}>{category}</option>
-                        )}
-                    </select>
-                    <label>Category</label>
-                </fieldset>
-                : null
+                <Select options={categories} required onChange={handleInputChange} value={values.category} title="Category"/> : null
             }
-            <fieldset className="input-box">
-                <input required name="title" type="text" onChange={handleInputChange} value={values.title}/>
-                <label>Title</label>
-            </fieldset>
-            <fieldset className="input-box">
-                <textarea rows={4} name="description" onChange={handleInputChange} value={values.description}></textarea>
-                <label>Description</label>
-            </fieldset>
+            <Input required onChange={handleInputChange} value={values.title} title="Title"/>
+            <Input textarea rows={4} required onChange={handleInputChange} value={values.description} title="Description"/>
             {values.type === 'element' ?
-                <fieldset className="input-box">
-                    <select required name="status" className="select" onChange={handleInputChange} value={values.status}>
-                    <option value="" disabled>Status</option>
-                        {statuses.map(status =>
-                            <option key={status}>{status}</option>
-                        )}
-                    </select>
-                    <label>Status</label>
-                </fieldset>
-                : null
+                <Select options={statuses} required onChange={handleInputChange} value={values.status} title="Status"/> : null
             }
             {values.type === 'goal' ?
-                <fieldset className="input-box">
-                    <input required type="date" name="deadline" onChange={handleInputChange} value={values.deadline}/>
-                    <label>Deadline</label>
-                </fieldset>
-                : null
+                <Input type="date" required onChange={handleInputChange} value={values.deadline} title="Deadline"/> : null
             }
             <button aria-label={`Submit ${values.type}`} type="submit">Submit</button>
         </form>

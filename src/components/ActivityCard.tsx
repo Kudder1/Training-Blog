@@ -3,6 +3,7 @@ import { activity } from "types/ContentTypes";
 import { ReactComponent as EditIcon } from 'assets/edit-icon.svg';
 import { ReactComponent as SaveIcon } from 'assets/save-icon.svg';
 import ProgressPie from "components/ProgressPie";
+import Input from './FormElements/Input';
 
 type ActivityCardProps = {
     activity: activity;
@@ -41,6 +42,10 @@ const ActivityCard = ({ activity, postCompleted, postPlanned }: ActivityCardProp
         setCompletedValue('');
     }
 
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setCompletedValue(+e.target.value)
+    }
+
     return (
         <section className="activity-section">
         <div className="activity-section__item">
@@ -62,10 +67,10 @@ const ActivityCard = ({ activity, postCompleted, postPlanned }: ActivityCardProp
                 </div>
             </div>
             <form onSubmit={onCompletedSubmit} className="activity-tracking d-flex">
-                <fieldset className="input-box">
-                    <input value={completedValue} onChange={e => setCompletedValue(+e.target.value)} required maxLength={3} className="track-input" inputMode="decimal" type="text"/>
-                    <label>{name === 'Ice Rink' ? 'Minutes' : 'Times'}</label>
-                </fieldset>
+                <Input value={completedValue} onChange={handleInputChange} required maxLength={3} 
+                    className="track-input" inputMode="decimal"
+                    title={name === 'Ice Rink' ? 'Minutes' : 'Times'}
+                />
                 <button aria-label="Track Progress" disabled={!completedValue} className="track-btn">Track</button>
             </form>
         </div>

@@ -275,16 +275,16 @@ main {
   }
 }
 
-.input-box .track-input {
-  min-width: 100px !important;
+input.track-input {
+  min-width: 100px;
   width: 100px;
   height: 100%;
-  border-top-right-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
   @media (max-width: $max_xs) {
     height: 40px;
-    border-top-right-radius: 4px !important;
-    border-bottom-left-radius: 0 !important;
+    border-top-right-radius: 4px;
+    border-bottom-left-radius: 0;
   }
 }
 
@@ -780,6 +780,12 @@ $size: 166px;
 
 select {
   text-transform: capitalize;
+  &:required:invalid {
+    color: grey;
+  }
+  option {
+    color: black;
+  }
 }
 
 .select {
@@ -787,12 +793,6 @@ select {
   padding: 5px;
   border-radius: 5px;
   min-width: 120px;
-  &:required:invalid {
-    color: grey;
-  }
-  option {
-    color: black;
-  }
 }
 
 
@@ -808,35 +808,36 @@ select {
 }
 
 .input-box {
+  display: block;
   position: relative;
   margin-bottom: 1.5rem;
   letter-spacing: 0.062rem;
-  input, select, textarea {
+  &__element {
     min-width: 300px;
     padding: 0.625rem 10px;
     font-size: 1rem;
     letter-spacing: 0.062rem;
     border: 1px solid $base_lightgray;
     background: transparent;
-    border-radius: 4px !important;
+    border-radius: 4px;
   }
   input, select {
-    &:focus ~ label,
-    &[type="date"] ~ label,
-    &:not([value=""]) ~ label {
+    &:focus ~ span,
+    &[type="date"] ~ span,
+    &:not([value=""]) ~ span {
       @include active-label;
     }
   }
   textarea {
-    &:focus ~ label,
-    &:not(:empty) ~ label {
+    &:focus ~ span,
+    &:not(:empty) ~ span {
       @include active-label;
     }
   }
   select {
     padding-left: 0.35rem;
   }
-  label {
+  span {
     position: absolute;
     top: 0;
     left: 10px;
@@ -893,7 +894,6 @@ button[type="submit"] {
     }
   }
   &__item {
-    font-size: 1rem;
     margin-bottom: 0;
     &:not(:last-child) {
       margin-right: 10px;
@@ -902,7 +902,7 @@ button[type="submit"] {
   select {
     min-width: 150px;
   }
-  &#filters label {
+  &#filters span {
     background: transparent;
     top: -25px;
     left: 0;

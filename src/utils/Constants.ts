@@ -4,6 +4,8 @@ export const categories = ['jumps', 'steps', 'spins']
 
 export const contentTypes = ['goal', 'element']
 
+export const goalStatuses = ['done', 'not done']
+
 export const initialActivities = [
     {
         name: 'Ice Rink',

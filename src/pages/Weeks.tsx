@@ -7,7 +7,7 @@ import { trainingWeek } from 'types/ContentTypes';
 import { getWeekView } from 'utils/Functions';
 
 const Weeks = () => {
-    const [ weeksF ]: any = useCollectionDataOnce(firestore.collection('weeks').orderBy('createdAt', 'desc'), { idField: 'id' });
+    const [ weeksF ] = useCollectionDataOnce(firestore.collection('weeks').orderBy('createdAt', 'desc'), { idField: 'id' });
     const weeks = weeksF as trainingWeek[];
     useEffect(() => {
         document.title = 'Weeks'
