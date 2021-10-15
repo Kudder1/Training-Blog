@@ -5,13 +5,12 @@ import Informer from 'components/Informer';
 import MainMenu from 'components/MainMenu';
 import Search from 'components/Search';
 import Login from 'pages/Login';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { useAuthState } from 'utils/useAuthState';
 import Loader from 'components/Loader';
 import Main from 'components/Main';
-import { auth } from 'index';
 
 function App() {
-  const [ user, loading ] = useAuthState(auth);
+  const {user, loading} = useAuthState();
   
   if (loading) return <div className="loader_main"><Loader/></div>
   return (

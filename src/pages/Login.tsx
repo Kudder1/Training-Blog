@@ -1,10 +1,10 @@
-import firebase from 'firebase';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from 'index'
 
 const Login = () => {
     const login = async () => {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        await auth.signInWithPopup(provider);
+        const provider = new GoogleAuthProvider();
+        await signInWithPopup(auth, provider);
     }
     return (
         <main className="login-page main-bg">

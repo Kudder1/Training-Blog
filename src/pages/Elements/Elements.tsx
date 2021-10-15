@@ -1,13 +1,14 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { useCollectionData } from 'utils/useCollectionData';
 import { firestore } from 'index';
 import { elementFields } from 'types/ContentTypes';
 import { categories, statuses } from 'utils/Constants';
 import ElementCard from './ElementCard';
 import Select from 'components/FormElements/Select';
+import { query, collection, orderBy } from '@firebase/firestore';
 
 const Elements = () => {
-    const [ elementsF ] = useCollectionData(firestore.collection('elements').orderBy('createdAt', 'desc'), { idField: 'id' });
+    const [ elementsF ] = useCollectionData(query(collection(firestore, 'elements'), orderBy('createdAt', 'desc')));
     const elements = elementsF as elementFields[];
     const [ statusFilter, setStatusFilter] = useState('all');
     const [ categoryFilter, setCategoryFilter] = useState('all');

@@ -1,13 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
-import { useCollectionData } from "react-firebase-hooks/firestore";
 import { firestore } from "index";
 import { goalFields } from "types/ContentTypes";
 import GoalCard from "./GoalCard";
 import { goalStatuses } from "utils/Constants";
 import Select from "components/FormElements/Select";
+import { useCollectionData } from "utils/useCollectionData";
+import { query, collection, orderBy } from "firebase/firestore";
 
 const Goals = () => {
-  const [ goalsF ] = useCollectionData(firestore.collection('goals').orderBy('createdAt', 'desc'), { idField: 'id' });
+  const [ goalsF ] = useCollectionData(query(collection(firestore, 'goals'), orderBy('createdAt', 'desc')))
   const goals = goalsF as goalFields[];
   const [ isDoneFilter, setIsDoneFilter] = useState('all');
 

@@ -9,6 +9,7 @@ import { ReactComponent as CalendarIcon } from 'assets/calendar-icon.svg';
 import { ReactComponent as CalendarTimeIcon } from 'assets/calendar-time-icon.svg';
 import { goalFields } from 'types/ContentTypes';
 import { isOverdue, getDate } from 'utils/Functions';
+import { updateDoc, doc, deleteDoc } from '@firebase/firestore';
 
 type GoalCardProps = {
     goal: goalFields;
@@ -23,7 +24,7 @@ const GoalCard = ({ goal }: GoalCardProps) => {
     const sendGoal = async () => {
         console.log(values)
         if (isFormTouched) {
-            await firestore.collection(`${goal.type}s`).doc(goal.id).update(values);
+            await updateDoc(doc(firestore, 'goals', goal.id), {...values})
             isFormTouched = false;
         }
         setIsEdit(false);
@@ -40,8 +41,8 @@ const GoalCard = ({ goal }: GoalCardProps) => {
 
     const overdue = isOverdue(goal.deadline);
 
-    const toggleDone = () => firestore.collection(`${goal.type}s`).doc(goal.id).update({isDone: !goal.isDone});
-    const deleteGoal = () => firestore.collection(`${goal.type}s`).doc(goal.id).delete();
+    const toggleDone = () => updateDoc(doc(firestore, 'goals', goal.id), {isDone: !goal.isDone});
+    const deleteGoal = () => deleteDoc(doc(firestore, 'goals', goal.id));
 
     return (
         <article className={`goal ${goal.isDone ? 'goal_done' : ''} ${isEdit ? 'goal_edit' : ''} ${overdue ? 'goal_overdue' : ''}`}>

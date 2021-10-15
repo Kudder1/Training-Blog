@@ -4,6 +4,7 @@ import { elementFields } from "types/ContentTypes";
 import { statuses } from "utils/Constants";
 import { ReactComponent as EditIcon } from 'assets/edit-icon.svg';
 import { ReactComponent as SaveIcon } from 'assets/save-icon.svg';
+import { updateDoc, doc } from "firebase/firestore";
 
 type ElementCardProps = {
     element: elementFields;
@@ -34,7 +35,7 @@ const ElementCard = ({element, informer}: ElementCardProps) => {
 
     const sendElement = async () => {
         if (isFormTouched) {
-            await firestore.collection(`${element.type}s`).doc(element.id).update(values);
+            await updateDoc(doc(firestore, 'elements', element.id), {...values});
             isFormTouched = false;
         }
         setIsEdit(false);

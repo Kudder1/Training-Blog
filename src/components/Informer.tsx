@@ -1,10 +1,11 @@
-import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { useCollectionData } from "utils/useCollectionData";
 import { firestore } from 'index';
 import ElementCard from 'pages/Elements/ElementCard';
 import { elementFields } from 'types/ContentTypes';
+import { query, collection, orderBy, limit } from "firebase/firestore";
 
 const Informer = () => {
-    const [ elementsF ] = useCollectionData(firestore.collection('elements').orderBy('createdAt', 'desc').limit(3), { idField: 'id' });
+    const [ elementsF ] = useCollectionData(query(collection(firestore, 'elements'), orderBy('createdAt', 'desc'), limit(3)))
     const elements = elementsF as elementFields[]
     return (
         <>

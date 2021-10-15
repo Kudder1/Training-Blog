@@ -5,12 +5,13 @@ import ActivityCard from "components/ActivityCard";
 import Loader from "components/Loader";
 import { activity, trainingWeek, weekProps } from "types/ContentTypes";
 import { getWeekView } from "utils/Functions";
+import { doc, getDoc } from "firebase/firestore";
 
 const WeekPage = ({ week, setWeek, postPlanned, postCompleted }: weekProps) => {
     const { id } = useParams<{id: string}>();
 
     const fetchWeek = useCallback(async () => {
-        const querySnapshot = await firestore.collection('weeks').doc(id).get();
+        const querySnapshot = await getDoc(doc(firestore, 'weeks', id));
         const weekData = querySnapshot.data() as trainingWeek;
         setWeek({...weekData, id: querySnapshot.id});
     }, [id, setWeek])

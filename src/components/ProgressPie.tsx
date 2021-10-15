@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 type ProgressPieProps = {
     percent: number;
     degree: number;
@@ -28,4 +30,4 @@ const ProgressPie = ({percent, degree}: ProgressPieProps) => {
     );
 };
 
-export default ProgressPie;
+export default memo(ProgressPie);

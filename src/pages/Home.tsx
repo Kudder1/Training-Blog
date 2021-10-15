@@ -1,28 +1,29 @@
-import firebase from "firebase";
 import { useCallback, useEffect } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, firestore } from "index";
+import { useAuthState } from "utils/useAuthState";
+import { firestore } from "index";
 import Loader from "components/Loader";
 import { activity, trainingWeek, weekEdges, weekProps } from "types/ContentTypes";
 import { getWeekView } from "utils/Functions";
 import { getWeekEdges } from "utils/getWeekEdges";
 import ActivityCard from "components/ActivityCard";
 import { initialActivities } from "utils/Constants";
+import { query, orderBy, limit, collection, getDocs, addDoc, serverTimestamp } from "firebase/firestore";
 
 const Home = ({ week, setWeek, postPlanned, postCompleted }: weekProps) => {
-    const [user] = useAuthState(auth)
+    const {user} = useAuthState()
 
     const sendWeek = useCallback(async (weekEdges: weekEdges) => {
-        await firestore.collection('weeks').add({
-            uid: user.uid,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        await addDoc(collection(firestore, 'weeks'), {
+            uid: user!.uid,
+            createdAt: serverTimestamp(),
             weekEdges,
             activities: initialActivities,
         })
-    }, [user.uid])
+    }, [user])
 
     const fetchWeek = useCallback(async () => {
-        const querySnapshot = await firestore.collection('weeks').orderBy('createdAt', 'desc').limit(1).get();
+        const q = query(collection(firestore, 'weeks'), orderBy('createdAt', 'desc'), limit(1));
+        const querySnapshot = await getDocs(q);
         const weekDoc = querySnapshot.docs[0];
         if (!weekDoc) {
            await sendWeek(getWeekEdges())
