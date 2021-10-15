@@ -11,11 +11,11 @@ import Main from 'components/Main';
 
 function App() {
   const {user, loading} = useAuthState();
-  
+
   if (loading) return <div className="loader_main"><Loader/></div>
   return (
     <Router>
-      {user ?
+      {user && !loading ?
       <>
         <aside className="block sidebar-left sidebar-left_desktop">
           <MainMenu />

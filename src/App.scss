@@ -204,6 +204,8 @@ main {
   z-index: 990;
   cursor: pointer;
   position: relative;
+  background: none;
+  appearance: none;
   @media (max-width: $max_md) {
     display: block;
   }

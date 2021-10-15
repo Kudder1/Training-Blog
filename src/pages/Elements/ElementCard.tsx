@@ -17,12 +17,17 @@ const ElementCard = ({element, informer}: ElementCardProps) => {
     const [isEdit, setIsEdit] = useState(false);
     const [frontBlockWidth, setFrontBlockWidth] = useState(0);
     const frontBlock = useRef<HTMLDivElement>(null)
+    const firstInput = useRef<HTMLInputElement>(null);
     const [values, setValues] = useState(element);
 
     useEffect(() => {
         const block = frontBlock.current;
         if (block) setFrontBlockWidth(block.offsetWidth);
     }, [frontBlock]);
+
+    useEffect(() => {
+        if (firstInput && isEdit) firstInput.current?.focus()
+    }, [isEdit])
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -33,7 +38,8 @@ const ElementCard = ({element, informer}: ElementCardProps) => {
         });
     };
 
-    const sendElement = async () => {
+    const sendElement = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         if (isFormTouched) {
             await updateDoc(doc(firestore, 'elements', element.id), {...values});
             isFormTouched = false;
@@ -44,24 +50,24 @@ const ElementCard = ({element, informer}: ElementCardProps) => {
     return (
         <article className={`element element_${element.status} ${isEdit ? 'element_edit' : ''} ${informer ? 'element_informer' : ''}`}>
             {!informer ? 
-                <div style={{width: frontBlockWidth}} className="element-container element-container_back">
-                    <button aria-label="Save Element" onClick={sendElement} className="element__edit">
+                <form onSubmit={sendElement} aria-hidden={!isEdit} style={{width: frontBlockWidth}} className="element-container element-container_back">
+                    <button tabIndex={isEdit ? 0 : -1} aria-label="Save Element" className="element__edit">
                         <SaveIcon/>
                     </button>
                     <div className="element__title-wrap">
-                        <input name="title" onChange={handleInputChange} value={values.title} className="element__title element__title_edit"/>
+                        <input aria-label="title" ref={firstInput} tabIndex={isEdit ? 0 : -1} name="title" onChange={handleInputChange} value={values.title} className="element__title element__title_edit"/>
                     </div>
                     <span className="element__category">{element.category}</span>
-                    <textarea rows={2} name="description" value={values.description} onChange={handleInputChange} className="element__text element__text_edit">{values.description}</textarea>
-                    <select name="status" onChange={handleInputChange} className="element__status_edit" required value={values.status}>
+                    <textarea aria-label="description"  tabIndex={isEdit ? 0 : -1} rows={2} name="description" value={values.description} onChange={handleInputChange} className="element__text element__text_edit">{values.description}</textarea>
+                    <select aria-label="status" tabIndex={isEdit ? 0 : -1} name="status" onChange={handleInputChange} className="element__status_edit" required value={values.status}>
                         {statuses.map(status => (
                             <option key={status}>{status}</option>
                         ))}
                     </select>
-                </div>
+                </form>
             : null}
             <div ref={frontBlock} className="element-container element-container_front">
-                {!informer ? <button onClick={() => setIsEdit(true)} aria-label="Edit Element" className="element__edit">
+                {!informer ? <button tabIndex={!isEdit ? 0 : -1} onClick={() => setIsEdit(true)} aria-label="Edit Element" className="element__edit">
                     <EditIcon/>
                 </button>
                  : null}

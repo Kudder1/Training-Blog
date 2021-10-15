@@ -5,12 +5,11 @@ import { User as FirebaseUser } from "firebase/auth";
 
 export const useAuthState = () => {
     const [user, setUser] = useState<FirebaseUser | null>(null)
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     useEffect(() => {
-        setLoading(true)
         const listener = onAuthStateChanged(auth, user => {
-            setLoading(false)
             if (user) setUser(user)
+            setLoading(false)
         })
         return () => listener()
       }, [])
