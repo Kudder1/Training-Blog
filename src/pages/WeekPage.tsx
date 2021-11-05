@@ -31,9 +31,11 @@ const WeekPage = ({ week, setWeek, postPlanned, postCompleted }: weekProps) => {
     return (
         <>
             <h1 className="main-heading">{weekName}</h1>
-            {week.activities.map((activity: activity) => (
-                <ActivityCard postCompleted={postCompleted} postPlanned={postPlanned} key={activity.name} activity={activity} />
-            ))}
+            <section className="activity-block">
+                {week.activities.map((activity: activity) => (
+                    <ActivityCard postCompleted={postCompleted} postPlanned={postPlanned} key={activity.name} activity={activity} />
+                ))}
+            </section>
         </>
     );
 };

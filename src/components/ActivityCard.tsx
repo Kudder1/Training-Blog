@@ -47,7 +47,7 @@ const ActivityCard = ({ activity, postCompleted, postPlanned }: ActivityCardProp
     }
 
     return (
-        <section className="activity-section">
+    <article className={`activity-section ${!planned ? 'activity-section_disabled' : '' }`}>
         <div className="activity-section__item">
             <h2 className="activity-section__title">{name}</h2>
             <div className="activity-progress">
@@ -77,7 +77,7 @@ const ActivityCard = ({ activity, postCompleted, postPlanned }: ActivityCardProp
         <div className="activity-section__item">
             <ProgressPie percent={iceRinkPercent} degree={iceRinkDegree} />
         </div>
-    </section>
+    </article>
     );
 };
 

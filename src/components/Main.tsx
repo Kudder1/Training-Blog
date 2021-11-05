@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { Route, Switch, Redirect, useLocation, NavLink } from 'react-router-dom';
 import { ADDING_ROUTE, privateRoutes } from 'routes';
+import { Location } from "history";
 
 const Main = () => {
-    const location = useLocation();
-    const path = location.pathname.substring(1);
-
+    const location = useLocation<Location>();
+    const path = location.pathname.split('/')[1];
     useEffect(() => {
         if (document.body.classList.contains('burger-open')) {
             document.body.classList.remove('burger-open')

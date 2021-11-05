@@ -324,7 +324,44 @@ input.track-input {
   }
 }
 
+.activity-block {
+  display: flex;
+  flex-direction: column;
+}
+
 .activity-section {
+  &_disabled {
+    order: 1;
+    position: relative;
+    opacity: .7;
+    &:before {
+      font-weight: bold;
+      font-size: 1.5rem;
+      content: 'Temporarily Closed';
+      position: absolute;
+      margin: auto;
+      right: 0;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      z-index: 3;
+      width: fit-content;
+      height: fit-content;
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      left: 0;
+      top: 0;
+      background: rgba(#fff, .7);
+    }
+    input, button:not(:disabled) {
+      visibility: hidden;
+    }
+  }
   margin-bottom: 20px;
   border: 1px solid $base_lightgray;
   padding: 15px;
